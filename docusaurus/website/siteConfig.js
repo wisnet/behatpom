@@ -15,8 +15,8 @@ const users = [
 const siteConfig = {
   title: 'QA No Err' /* title for your website */,
   tagline: 'Quality Assurance: No Errors!',
-  url: 'https://wisnet.com' /* your website url */,
-    baseUrl: '/' /* base url for your project */,
+  url: 'https://wisnet.github.io' /* your website url */,
+    baseUrl: '/behatpom/' /* base url for your project */,
 
     
   // For github.io type URLs, you would set the url and baseUrl like:
@@ -24,8 +24,8 @@ const siteConfig = {
   //   baseUrl: '/test-site/',
 
   // Used for publishing and more
-  projectName: 'qanoerror',
-  organizationName: 'QA No Err',
+  projectName: 'behatpom',
+  organizationName: 'wisnet',
   // For top-level user or org sites, the organization is still the same.
   // e.g., for the https://JoelMarcey.github.io site, it would be set like...
   //   organizationName: 'JoelMarcey'
