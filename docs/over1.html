@@ -14,6 +14,10 @@
                 var toggler = document.querySelector(togglerSelector);
                 var target = document.querySelector(targetSelector);
 
+                if (!toggler) {
+                  return;
+                }
+
                 toggler.onclick = function(event) {
                   event.preventDefault();
 
@@ -21,7 +25,7 @@
                 };
               }
             });
-        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Overview</h1></header><article><div><span><p>The following provides a high level view of this project.</p>
+        </script></nav></div><div class="container mainContainer docMainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Overview</h1></header><article><div><span><p>The following provides a high level view of this project.</p>
 <h2><a class="anchor" aria-hidden="true" id="web-applications"></a><a href="#web-applications" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Web Applications</h2>
 <p>This project is geared towards responsive web applications running on desktops and mobile devices.</p>
 <h2><a class="anchor" aria-hidden="true" id="php"></a><a href="#php" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>PHP</h2>
@@ -47,7 +51,7 @@ To create a POM, this project provides a Chrome Extension, <em>Page Object Gener
 <p>The POM design help seperates the access to elements on a web page from the Gherkin that is interacting with the page.  Rather then have XPath selectors with in the Gherkin code, the POM approach makes the Gherkin much more business like.  So rather the have the Gherkin contain selector type logic, it just interacts w/ the POM page.  This way, also, if the page changes the element to a different name or XPath selector, the change only happens in one place: the POM itself.</p>
 <p>The QaNoErr POM objects are based upon a <code>Base</code> object.  The <code>Base</code> has the common accessors such as <code>clickTheButton</code> and <code>fill</code> a text input field.  All generated POM objects inherit from the <code>Base</code> object.</p>
 <p>Following is an example of a generated POM.  Note that if there is a <code>&lt;Base&gt;Extend.php</code> class available, it will be included.  During the <code>__construct</code> method, if the <code>&lt;Base&gt;Extend.php</code> exists, then any elements defined within the <code>addToElements</code> function will be added.  This provides the ability to add XPath accessors that the Chrome Extension did not generate.</p>
-<pre><code class="hljs css languages- php">
+<pre><code class="hljs css language-php">
 <span class="hljs-meta">&lt;?php</span>
 <span class="hljs-keyword">namespace</span> <span class="hljs-title">pages</span>;
 <span class="hljs-keyword">use</span> <span class="hljs-title">Wisnet</span>\<span class="hljs-title">BehatPom</span>\<span class="hljs-title">Utility</span>;
@@ -90,7 +94,7 @@ To create a POM, this project provides a Chrome Extension, <em>Page Object Gener
 
 </code></pre>
 <p>The following class is the Extension, which is optional.  The function <code>addToElements</code> allows for additional XPath selectors.  Also, we'll see later, how to override functions w/in the <code>Base</code> class at runtime.</p>
-<pre><code class="hljs css languages- php"><span class="hljs-meta">&lt;?php</span>
+<pre><code class="hljs css language-php"><span class="hljs-meta">&lt;?php</span>
 <span class="hljs-keyword">namespace</span> <span class="hljs-title">pages</span>;
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BeforeYouFinishExtend</span> </span>{
@@ -128,7 +132,7 @@ To create a POM, this project provides a Chrome Extension, <em>Page Object Gener
 <h2><a class="anchor" aria-hidden="true" id="snippets"></a><a href="#snippets" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Snippets</h2>
 <p>When writing Gherkin, many times there are situations what will be repeated from script to script.  Take for example a Customer Login action.  There will most likely be many Features that require a Customer Login.  Rather then copy and paste these steps for the Customer Login, instead you can create a <code>snippet</code>.</p>
 <p>Here's an example of what the Gherkin looks like when the snippet is referenced, notice the <code>{{{clientLogsIn}}}</code></p>
-<pre><code class="hljs css languages- gherkin"><span class="hljs-keyword">Feature</span>: 3 Month Programme
+<pre><code class="hljs css language-gherkin"><span class="hljs-keyword">Feature</span>: 3 Month Programme
   In order to utilize a programme
   As a 3 Month membership
   I want to pay for 3 month 
@@ -142,7 +146,7 @@ To create a POM, this project provides a Chrome Extension, <em>Page Object Gener
     <span class="hljs-keyword">Given</span> I click the <span class="hljs-string">"Wellness Programmes"</span> link
 </code></pre>
 <p>And here is the <code>clientLogsIn</code> snippet.</p>
-<pre><code class="hljs css languages- gherkin">    <span class="hljs-keyword">When</span> I go to the <span class="hljs-string">"Home"</span> page
+<pre><code class="hljs css language-gherkin">    <span class="hljs-keyword">When</span> I go to the <span class="hljs-string">"Home"</span> page
     <span class="hljs-keyword">And</span> I click the <span class="hljs-string">"Log In"</span> link
     <span class="hljs-keyword">Then</span> I should see the <span class="hljs-string">"Log in"</span> page
     <span class="hljs-keyword">Given</span> I fill the <span class="hljs-string">"user_login"</span> with <span class="hljs-string">"someuser@gmail.com"</span>
@@ -153,7 +157,7 @@ To create a POM, this project provides a Chrome Extension, <em>Page Object Gener
 </code></pre>
 <h2><a class="anchor" aria-hidden="true" id="partials"></a><a href="#partials" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Partials</h2>
 <p>A <code>partial</code> is very simular to a <code>snippet</code> in that it code that can be referenced by a Gherkin step but it also provides the ability to pass parameters in.  Take for example a Quiz that has multiple questions and each question has 4 options that have to be ranked in some order.  Here's what a <code>Quiz</code> gherkin might look like.  Notice how there are multiple variables (e.g. <code>question0</code>) and different values.</p>
-<pre><code class="hljs css languages- gherkin"><span class="hljs-keyword">Feature</span>: Sensory Quiz
+<pre><code class="hljs css language-gherkin"><span class="hljs-keyword">Feature</span>: Sensory Quiz
   As a registered user
   I can take the sensory quiz 
   I can view the results
@@ -172,7 +176,7 @@ To create a POM, this project provides a Chrome Extension, <em>Page Object Gener
 {{&gt;sensoryQuiz question0=<span class="hljs-string">"A2 L3 V1 K4"</span> question1=<span class="hljs-string">"A2 L3 V1 K4"</span> question2=<span class="hljs-string">"A2 L3 V1 K4"</span> question3=<span class="hljs-string">"A2 L3 V1 K4"</span> question4=<span class="hljs-string">"A2 L3 V1 K4"</span> question5=<span class="hljs-string">"A1 L3 V2 K4"</span> question6=<span class="hljs-string">"A1 L3 V2 K4"</span>  question7=<span class="hljs-string">"A1 L3 V2 K4"</span>  question8=<span class="hljs-string">"A1 L3 V2 K4"</span> result=<span class="hljs-string">"Visual"</span>}}
 </code></pre>
 <p>And here is a portion of the <code>sensoryQuiz</code> partial:</p>
-<pre><code class="hljs css languages- gherkin">    <span class="hljs-keyword">Given</span> I go to the <span class="hljs-string">"Sensory quiz"</span> page
+<pre><code class="hljs css language-gherkin">    <span class="hljs-keyword">Given</span> I go to the <span class="hljs-string">"Sensory quiz"</span> page
 <span class="hljs-comment">#first question</span>
     <span class="hljs-keyword">And</span> I click the <span class="hljs-string">"Question 0 for {{substring question0 0 1}} with {{substring question0 1 1}}"</span> button
     <span class="hljs-keyword">And</span> I click the <span class="hljs-string">"Question 0 for {{substring question0 3 1}} with {{substring question0 4 1}}"</span> button
@@ -181,7 +185,7 @@ To create a POM, this project provides a Chrome Extension, <em>Page Object Gener
     <span class="hljs-keyword">And</span> I take a snapshot called 'question_1'
 </code></pre>
 <p>And the generated result will look something like this:</p>
-<pre><code class="hljs css languages- gherkin">    <span class="hljs-keyword">Given</span> I go to the <span class="hljs-string">"Sensory quiz"</span> page
+<pre><code class="hljs css language-gherkin">    <span class="hljs-keyword">Given</span> I go to the <span class="hljs-string">"Sensory quiz"</span> page
 <span class="hljs-comment">#first question</span>
     <span class="hljs-keyword">And</span> I click the <span class="hljs-string">"Question 0 for A with 1"</span> button
     <span class="hljs-keyword">And</span> I click the <span class="hljs-string">"Question 0 for L with 3"</span> button
@@ -226,4 +230,4 @@ To create a POM, this project provides a Chrome Extension, <em>Page Object Gener
 <img src="/docs/assets/Coverage-Code.png" alt="Code coverage"></p>
 <p>And the following shows the functions w/in a class and their coverage:</p>
 <p><img src="/docs/assets/Coverage-File.png" alt="Source code functions"></p>
-</span></div></article></div><div class="docs-prevnext"><a class="docs-next button" href="/docs/started.html">Getting Started →</a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#web-applications">Web Applications</a></li><li><a href="#php">PHP</a></li><li><a href="#behat-gherkin">Behat Gherkin</a></li><li><a href="#page-object-model-pom">Page Object Model (POM)</a></li><li><a href="#behat-pom-library">Behat POM Library</a></li><li><a href="#chrome-extension-page-object-generator">Chrome Extension: Page Object Generator</a></li><li><a href="#snippets">Snippets</a></li><li><a href="#partials">Partials</a></li><li><a href="#psysh">Psysh</a></li><li><a href="#cbt-crossbrowsertesting">CBT - CrossBrowserTesting</a></li><li><a href="#code-coverage">Code Coverage</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="copyright">Copyright © 2018 wisnet.com</section></footer></div></body></html>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-next button" href="/docs/started.html"><span>Next</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav docOnPageNav"><ul class="toc-headings"><li><a href="#web-applications">Web Applications</a></li><li><a href="#php">PHP</a></li><li><a href="#behat-gherkin">Behat Gherkin</a></li><li><a href="#page-object-model-pom">Page Object Model (POM)</a></li><li><a href="#behat-pom-library">Behat POM Library</a></li><li><a href="#chrome-extension-page-object-generator">Chrome Extension: Page Object Generator</a></li><li><a href="#snippets">Snippets</a></li><li><a href="#partials">Partials</a></li><li><a href="#psysh">Psysh</a></li><li><a href="#cbt-crossbrowsertesting">CBT - CrossBrowserTesting</a></li><li><a href="#code-coverage">Code Coverage</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="copyright">Copyright © 2018 wisnet.com</section></footer></div></body></html>

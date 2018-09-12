@@ -14,6 +14,10 @@
                 var toggler = document.querySelector(togglerSelector);
                 var target = document.querySelector(targetSelector);
 
+                if (!toggler) {
+                  return;
+                }
+
                 toggler.onclick = function(event) {
                   event.preventDefault();
 
@@ -21,7 +25,7 @@
                 };
               }
             });
-        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Getting Started</h1></header><article><div><span><p>This documentation will provide steps on getting your first QaNoErr project up and running.  We will take an example website login page and some generic Gherkin scenarios.</p>
+        </script></nav></div><div class="container mainContainer docMainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Getting Started</h1></header><article><div><span><p>This documentation will provide steps on getting your first QaNoErr project up and running.  We will take an example website login page and some generic Gherkin scenarios.</p>
 <p>We will do the following:</p>
 <ul>
 <li><a href="#assumptions"><code>Assumptions</code></a></li>
@@ -151,7 +155,7 @@
 <p>The <code>selector</code> is used as the containing element from which the XPath locators will be determined.  This is useful for when there is navigation on every page and you don't want to include that in every POM.</p>
 <p>When you click the <code>Generate</code> button, save the file as <code>LoginForm.php</code> and save it to <code>features/bootstrap/pages</code></p>
 <h3><a class="anchor" aria-hidden="true" id="let-s-review-the-generated-loginformphp"></a><a href="#let-s-review-the-generated-loginformphp" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>Let's review the generated LoginForm.php</code></h3>
-<pre><code class="hljs css languages- php"><span class="hljs-meta">&lt;?php</span>
+<pre><code class="hljs css language-php"><span class="hljs-meta">&lt;?php</span>
 <span class="hljs-keyword">namespace</span> <span class="hljs-title">pages</span>;
 <span class="hljs-keyword">use</span> <span class="hljs-title">Wisnet</span>\<span class="hljs-title">BehatPom</span>\<span class="hljs-title">Utility</span>;
 <span class="hljs-keyword">use</span> <span class="hljs-title">Wisnet</span>\<span class="hljs-title">BehatPom</span>\<span class="hljs-title">Base</span>;
@@ -233,7 +237,7 @@
 <p>In our opinion, that is bad because we want to review the Gherkin w/ the Business folks and it shouldn't look so <code>geeky</code>.  Instead we want the Gherkin to read the way a user would speak.</p>
 <p>Another issue with this Gherkin is there is repetition.  You can see that we go to the same page and put different values into fields and then press the same button.  It would be better if we could keep this DRY (Don't Repeat Yourself).</p>
 <h3><a class="anchor" aria-hidden="true" id="let-s-review-the-modified-gherkin-that-utilizes-the-pom"></a><a href="#let-s-review-the-modified-gherkin-that-utilizes-the-pom" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>Let's review the modified Gherkin that utilizes the POM</code></h3>
-<pre><code class="hljs css languages- gherkin"><span class="hljs-keyword">Feature</span>: Login to page 
+<pre><code class="hljs css language-gherkin"><span class="hljs-keyword">Feature</span>: Login to page 
     A login attempt with valid credentials
     Should be accepted
     <span class="hljs-keyword">And</span> a login attempt with bad credentials
@@ -264,7 +268,7 @@
 </ol>
 <p>So we have to add them by hand.  We do this by creating a class that follows a specific naming convention of <code>&lt;POM&gt;Extend.php</code>.</p>
 <p>If you look at the bottom of the <code>LoginForm.php</code> class, you'll see this constructor:</p>
-<pre><code class="hljs css languages- php">   <span class="hljs-comment">/*
+<pre><code class="hljs css language-php">   <span class="hljs-comment">/*
    * Create variable if LoginForm exists
    */</span>
     <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span><span class="hljs-params">($session, $factory, $parameters)</span> </span>{
@@ -279,7 +283,7 @@
 </code></pre>
 <p>If a class is created that is called <code>LoginFormExtend.php</code>, then it will be instantiated and a method called <code>addToElements</code> will be called.  That method provides us the way to add more XPath locators for elements that the Chrome Extension didn't find.</p>
 <p>So let's create the extend class called <code>features/bootstrap/pages/LoginFormExtend.php</code> and make it look like this:</p>
-<pre><code class="hljs css languages- php"><span class="hljs-meta">&lt;?php</span>
+<pre><code class="hljs css language-php"><span class="hljs-meta">&lt;?php</span>
 <span class="hljs-keyword">namespace</span> <span class="hljs-title">pages</span>;
 <span class="hljs-keyword">use</span> <span class="hljs-title">Wisnet</span>\<span class="hljs-title">BehatPom</span>\<span class="hljs-title">Utility</span>;
 
@@ -344,14 +348,14 @@
 <p>When we clicked the <code>submit</code> button, we noticed a time delay until a message was displayed.  During that delay, we saw a orange message informing us of the action.  when you clicked the <code>Submit</code> button, a message displayed with the text &quot;Verifying credentials&quot;.  Some folks would like to add a <code>And I wait &quot;3&quot; second</code> step.  That is not a good solution for waiting for some AJax call to complete.</p>
 <p>Let's figure out how to wait for that &quot;spinner&quot; to disappear.</p>
 <p>Go back to the Chrome developers tool and open the <code>Elements</code> tab.  Scroll through the html looking for the comment that looks like <code>&lt;!-- Processing progress bar--&gt;</code>.  On the next element you'll see the following:</p>
-<pre><code class="hljs css languages- html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"progress ng-hide"</span> <span class="hljs-attr">ng-show</span>=<span class="hljs-string">"vm.dataLoading"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"margin-top:20px"</span>&gt;</span>
+<pre><code class="hljs css language-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"progress ng-hide"</span> <span class="hljs-attr">ng-show</span>=<span class="hljs-string">"vm.dataLoading"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"margin-top:20px"</span>&gt;</span>
 
 </code></pre>
 <p>We want to see what happens to this <code>div</code> when we click the <code>Login</code> button.  So place your mouse over that <code>div</code> and scroll down the context menu until you find <code>Break on</code>.  Select that item and then in the submenu, click on <code>attribute modification</code>.  See <img src="/docs/assets/BreakOnAttributeModification.png" alt="Break on Attribute modification"></p>
 <p>Now, put values into the two fields (<code>username</code> and <code>password</code>) and click the <code>Login</code> button.  You will now see that you've stopped in the debugger.  What is happening is that the <code>class</code> of <code>ng-hide</code> is going to be removed from the div.  Go ahead and let the debugger continue.  After a few moments, the debugger will stop again.  This time the code is adding back in the <code>ng-hide</code> class.</p>
 <p>You can close the developer console now.</p>
 <p>What we want to do is wait for the <code>div</code> with only the class <code>progress</code> to disappear.  There is a step that supports this.  It will look like this in the gherkin:</p>
-<pre><code class="hljs css languages- gherkin">    <span class="hljs-keyword">And</span> I wait for the <span class="hljs-string">"Verifying credentials"</span> spinner
+<pre><code class="hljs css language-gherkin">    <span class="hljs-keyword">And</span> I wait for the <span class="hljs-string">"Verifying credentials"</span> spinner
 </code></pre>
 <p>It's much better to wait for events to complete then to sleep for some period of time waiting for the page to complete processing and QaNoErr provides that functionality.</p>
 <p>So now our <code>loginform.hbs.feature</code> looks like this:</p>
@@ -383,11 +387,11 @@
 <p>QaNoErr supports <code>partials</code> and <code>snippets</code>;  <code>Snippets</code> are just plain code that gets replaced within the feature;  A <code>partial</code> is similiar but also supports the passing of parameters.</p>
 <p>Let's start w/ a <code>snippet</code> as it's the easier case.  I see this statement repeated twice: <code>And I wait for the &quot;Verifying credentials&quot; spinner</code>.  Let's make that into a <code>snippet</code>.  First, create a file with this naming convention: <code>&lt;snippetName&gt;.snippet.feature</code>; For our purpose, let's name the snippet <code>verify_credentials</code>.  So make a file called <code>verify_credentials.snippet.feature</code> win the same directory, namely <code>features/gherkin</code>;  Take the line in question and add it to that file.</p>
 <p>So now our <code>verify_credentials.snippet.feature</code> has this content:</p>
-<pre><code class="hljs css languages- gherkin">        <span class="hljs-keyword">And</span> I wait for the <span class="hljs-string">"Verifying credentials"</span> spinner
+<pre><code class="hljs css language-gherkin">        <span class="hljs-keyword">And</span> I wait for the <span class="hljs-string">"Verifying credentials"</span> spinner
 </code></pre>
 <p>Now, the final step.  Back in the <code>loginForm.hbs.feature</code>, replace the line we are turning into a snippet with this:  <code>{{{verify_credentials}}}</code>.  You will do this two times.</p>
 <p>Now are feature should look like this:</p>
-<pre><code class="hljs css languages- gherkin"><span class="hljs-keyword">Feature</span>: Login to page 
+<pre><code class="hljs css language-gherkin"><span class="hljs-keyword">Feature</span>: Login to page 
     A login attempt with valid credentials
     Should be accepted
     <span class="hljs-keyword">And</span> a login attempt with bad credentials
@@ -412,17 +416,17 @@
 </code></pre>
 <p>Since we've updated our Gherkin, we need to run the <code>compose behat-prep</code> to generate the features.  So run that command and then look into the <code>features/temp</code> directory.  You'll see the <code>loginForm.feature</code> now has the statements replacing the <code>{{{verifying_credentials}}}</code>.  This is a quick and easy way to avoid copying Gherkin code.  This principal is sometimes referred to as DRY - Don't Repeat Yourself.</p>
 <p>So now we want to look at creating a <code>partial</code>;  A <code>partial</code> is a <code>snippet</code> with parameters.  Here's what our <code>partial</code> will be invoked from within the <code>features/gherkin/loginForm.hbs.feature</code></p>
-<pre><code class="hljs css languages- gherkin">{{&gt;verifying_credentials username=<span class="hljs-string">"badusername@crossbrowsertesting.com"</span> password=<span class="hljs-string">"badpassword"</span>}}
+<pre><code class="hljs css language-gherkin">{{&gt;verifying_credentials username=<span class="hljs-string">"badusername@crossbrowsertesting.com"</span> password=<span class="hljs-string">"badpassword"</span>}}
 </code></pre>
 <p>And here's what that <code>partial</code> will look like:</p>
-<pre><code class="hljs css languages- gherkin">        <span class="hljs-keyword">Given</span> I go to the <span class="hljs-string">"Login form"</span> page
+<pre><code class="hljs css language-gherkin">        <span class="hljs-keyword">Given</span> I go to the <span class="hljs-string">"Login form"</span> page
         <span class="hljs-keyword">And</span> I fill the <span class="hljs-string">"username"</span> with <span class="hljs-string">"{{name}}"</span>
         <span class="hljs-keyword">And</span> I fill the <span class="hljs-string">"password"</span> with <span class="hljs-string">"{{password}}"</span>
         <span class="hljs-keyword">And</span> I click the <span class="hljs-string">"submit"</span> button
 </code></pre>
 <p>Note that the variable <code>{{name}}</code> and <code>{{password}}</code> are passed into the partial.</p>
 <p>So now our final Gherkin looks like this:</p>
-<pre><code class="hljs css languages- gherkin"><span class="hljs-keyword">Feature</span>: Login to page 
+<pre><code class="hljs css language-gherkin"><span class="hljs-keyword">Feature</span>: Login to page 
     A login attempt with valid credentials
     Should be accepted
     <span class="hljs-keyword">And</span> a login attempt with bad credentials
@@ -442,7 +446,7 @@
 <h3><a class="anchor" aria-hidden="true" id="run-the-tests-locally"></a><a href="#run-the-tests-locally" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>Run the tests locally</code></h3>
 <p>Run tests locally means that you will be running a terminal window with the Selenium Server and another terminal runing Behat.  The Selenium server takes the requests from Behat and interfaces w/ the browser.  You will need to install the browser driver.  For <code>chrome</code>, you can download from <a href="http://chromedriver.chromium.org/downloads">http://chromedriver.chromium.org/downloads</a>.</p>
 <p>Copy the <code>behat.yml</code> from <code>vendor/wisnet/behatpom/project-template/</code> to the projects base directory.  It should be like this:</p>
-<pre><code class="hljs css languages- yml"><span class="hljs-attr">default:</span>
+<pre><code class="hljs css language-yml"><span class="hljs-attr">default:</span>
 <span class="hljs-attr">  suites:</span>
 <span class="hljs-attr">    home:</span>
 <span class="hljs-attr">      paths:</span> <span class="hljs-string">["%paths.base%/features/temp/loginForm.feature"]</span>
@@ -554,4 +558,4 @@ Exit status : <span class="hljs-number">0</span>
 <p>Another very useful report is <code>grid.html</code> located in the same directory and it looks like this <img src="/docs/assets/grid-report.png" alt="Grid repor">.  This shows all the devices that were run, in our case 3 devices.  Each device has their screenshots in that column. Each row in the table are the images for the same page.  This makes it easy for the UI folks to compare the same screen shot across multiple browsers.</p>
 <p>In the header row, there is going to be either a <code>Green</code> checkbox or a <code>Red</code> failure mark.  If there is a failure, you can click on the <code>Log</code> to see the logs from the run as shown here: <img src="/docs/assets/grid-report-log.png" alt="Grid log">.</p>
 <p>If you click on any screenshot, you can see a larger version: <img src="/docs/assets/GridDeviceScreenshot.png" alt="Device screenshot"></p>
-</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/over1.html">← Overview</a><a class="docs-next button" href="/docs/doc1.html">Latin-ish →</a></div></div></div><nav class="onPageNav"></nav></div><footer class="nav-footer" id="footer"><section class="copyright">Copyright © 2018 wisnet.com</section></footer></div></body></html>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/over1.html"><span class="arrow-prev">← </span><span>Previous</span></a><a class="docs-next button" href="/docs/doc1.html"><span>Next</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav docOnPageNav"></nav></div><footer class="nav-footer" id="footer"><section class="copyright">Copyright © 2018 wisnet.com</section></footer></div></body></html>
