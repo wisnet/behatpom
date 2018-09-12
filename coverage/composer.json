@@ -1,0 +1,28 @@
+{
+    "scripts": {
+	"selenium-server": "vendor/bin/selenium-server-standalone  2>&1 | tee .\/selenium-server.log",	
+	"behat":  "composer coverage-teardown && vendor/bin/behat --config behat.yml --colors",
+	"wip": "composer coverage-teardown && vendor/bin/behat --config behat.yml --colors  --tags wip",
+	"coverage-report": "php features/coverage/report.php",
+	"coverage-setup": "php /codeCoverage/setupCoverage.php setup",
+	"coverage-teardown": "php /codeCoverage/setupCoverage.php teardown",
+	"coverage": "composer coverage-teardown && composer coverage-setup && vendor/bin/behat --config behat.yml --colors"
+    },
+    "config": {
+	"process-timeout": 0
+    },
+    "require-dev": {
+        "se/selenium-server-standalone": "^3.10",
+        "facebook/webdriver": "^1.5",
+        "behat/mink-goutte-driver": "^1.2",
+        "behat/mink-selenium2-driver": "^1.3",
+        "psy/psysh": "^0.8.17",
+        "sensiolabs/behat-page-object-extension": "^2.1",
+        "behat/mink-extension": "^2.3",
+        "phpunit/phpunit": "^7.0",	
+        "phpunit/phpcov": "^5.0",
+        "phpunit/php-code-coverage": "^6.0",
+        "wisnet/behatpom": "dev-master"
+    }
+
+}

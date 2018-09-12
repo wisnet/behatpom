@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Behat POM Extension</title>
+    <link rel="stylesheet" href="assets/css/popup.css"/>
+    <script src="assets/library/jquery-3.3.1.min.js"></script>
+    <script src="assets/library/handlebars-v4.0.11.js"></script>    
+  </head>
+  <body>
+    <header>
+      <img src="assets/icons/icon48.png"/>
+      <span>Page Object Generator</span>
+    </header>
+    <div class="preloader separator"></div>
+    <fieldset>
+      <legend>Settings</legend>
+      <ul>
+	<li>
+          <label for="model.baseUrl">Base Url</label>
+          <input type="text" id="model.baseUrl" value="https://uwce.dev" placeholder="https://"/>
+	</li>
+	
+	<li>
+          <label for="model.pageUrl">Page Url:</label>
+          <input type="text" id="model.pageUrl" value="/fond-du-lac/admin/course/edit/{id}" placeholder="Page Url to process"  />
+	</li>
+	<li>
+          <label for="model.selector">Selector:</label>
+          <input type="text" id="model.selector" value="//div[@id='primary']" placeholder="Selector"  />
+	</li>
+	<li>
+          <label for="model.pageName">POM Page Name:</label>
+          <input type="text" id="model.pageName" value="EditCourseTabs" placeholder="POM page name"/>
+	</li>
+	<li>
+          <label for="model.trim">Trim:</label>
+          <input type="checkbox" id="model.trim" checked/>
+	</li>
+      </ul>
+    </fieldset>
+    <fieldset>
+      <legend>Target</legend>
+      <button class="generate"><span class="fa fa-download"></span>Generate</button>
+      <a class="downloader"></a>
+    </fieldset>    
+    <script src="assets/js/popup.js"></script>
+  </body>
+</html>

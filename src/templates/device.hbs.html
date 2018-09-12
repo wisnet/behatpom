@@ -1,0 +1,58 @@
+<html>
+  <head>
+    <title>QANoErr - Device View</title>    
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans">
+    <link rel="stylesheet" type="text/css" href="mod.css">
+  </head>
+  <body>
+    <div id="toc_container">
+      <p class="toc_title">Device</p>
+      <ul>
+	{{device}}
+      </ul>
+    </div>     
+    {{#each suites}}
+    {{#each features}}
+    <p><span id="{{title}}" class="h1">Feature: <span class="featureTitle">{{title}}</span></span></p>
+    <blockquote><pre>
+{{{description}}}
+    </pre></blockquote>
+    {{#if hasBackgroundSteps}}
+    <p class="scenario-line">Background:</p>
+       {{#each scenarios}}
+          {{#each steps}}
+             {{#if isBackgroundStep}}
+                {{#if comment}}
+    <p><span class="comment">{{text}}</span></p>    
+                {{else}}
+    <p><span class="keywords">{{type}}</span> {{text}} </p>
+                {{/if}}
+                {{#if img}}
+    <img src="screenshots/{{device}}{{img}}.png" style="width:100%;max-width:300px"/>
+                {{/if}}        
+             {{/if}}
+          {{/each}}
+        {{/each}}
+    {{/if}}
+    
+    {{#each scenarios}}
+    <p class="scenario-line">Scenario: <span class="featureTitle"> {{title}}</span></p>    
+       {{#each steps}}
+         {{#if isBackgroundStep}}
+         {{else}}
+           {{#if comment}}
+    <p><span class="comment">{{text}}</span></p>
+           {{else}}
+    <p><span class="keywords">{{type}}</span> {{text}} </p>
+           {{/if}}
+           {{#if img}}
+    <img src="screenshots/{{device}}{{img}}.png" style="width:100%;max-width:300px"/>
+           {{/if}}
+         {{/if}}
+       {{/each}}    
+     {{/each}}
+    {{/each}}
+    {{/each}}
+  </body>
+</html>
+

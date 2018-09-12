@@ -1,0 +1,139 @@
+#!/usr/bin/env php
+<?php
+/*
+ * Copyright (c) Wisnet
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+foreach ([__DIR__ . '/../../../../autoload.php', __DIR__ . '/../vendor/autoload.php'] as $file) {
+    if (file_exists($file)) {
+        require $file;
+        break;
+    }
+}
+use Wisnet\BehatPom\GridReport;
+
+use Wisnet\BehatPom\CheckParallelTest;
+
+use LightnCandy\LightnCandy;
+
+/**
+ * Execute the given command by displaying console output live to the user.
+ *  @param  string  cmd          :  command to be executed
+ *  @return array   exit_status  :  exit status of the executed command
+ *                  output       :  console output of the executed command
+ */
+function liveExecuteCommand($cmd)
+{
+
+    while (@ ob_end_flush()); // end all output buffers if any
+
+    $proc = popen("$cmd 2>&1 ; echo Exit status : $?", 'r');
+
+    $live_output     = "";
+    $complete_output = "";
+
+    while (!feof($proc))
+    {
+        $live_output     = fread($proc, 4096);
+        $complete_output = $complete_output . $live_output;
+        echo "$live_output";
+        @ flush();
+    }
+
+    pclose($proc);
+
+    // get exit status
+    preg_match('/[0-9]+$/', $complete_output, $matches);
+
+    // return exit status and intended output
+    return array (
+                    'exit_status'  => intval($matches[0]),
+                    'output'       => str_replace("Exit status : " . $matches[0], '', $complete_output)
+                 );
+}
+$auth = file_get_contents(getcwd() . "/features/cbt/cbt.env.json");
+$auth = json_decode($auth,true);
+
+$yml_file = getcwd() . "/features/cbt/behat-cbt.hbs.yml";
+
+//Get the name of the feature
+$cbtName = '';
+$handle = fopen($yml_file, "r");
+if ($handle) {
+    while (($line = fgets($handle)) !== false) {
+        if (strpos($line, 'paths:') ) {
+            $parts = explode("/", $line);
+            $posFeature = strpos($parts[3],'.feature');
+            
+            $cbtName = substr($parts[3],0,$posFeature);
+        }
+    }
+    fclose($handle);
+} else {
+    eval(\Psy\sh());            
+    // error opening the file.
+}         
+
+//Each time we run, save results under the BUILD date/time
+date_default_timezone_set('America/Chicago');
+$BUILD = date('Y-m-d-H-i') . "-$cbtName";
+
+//Keep all the results under '/output' so that
+//.gitignore works
+$directory = getcwd() . '/features/results/' . $BUILD;
+
+if (!file_exists($directory)) {
+    mkdir($directory, 0777, true);
+}
+
+if (!file_exists($directory . '/screenshots')) {
+    mkdir($directory . '/screenshots', 0777, true);
+}
+
+$checkParallelTest = new CheckParallelTest($auth['username'],
+                                           $auth['authkey']);
+
+$devices = file_get_contents(getcwd() . "/features/cbt/devices.json");
+
+$devicesArray = json_decode($devices, true);
+
+
+$template = file_get_contents($yml_file);
+
+$phpStr = LightnCandy::compile($template);  // set compiled PHP code into $phpStr
+$renderer = LightnCandy::prepare($phpStr);
+
+
+foreach ($devicesArray as $value) {
+    try {
+        $checkParallelTest->waitWhileTestsAreRunning();
+        $value['build'] = $BUILD;
+        $value['username'] = $auth['username'];
+        $value['authkey'] = $auth['authkey'];
+        
+        file_put_contents(getcwd() . '/features/cbt/behat-cbt.yml', $renderer($value));
+
+        $result  = liveExecuteCommand(getcwd () . '/vendor/bin/behat --config ' . getcwd() . '/features/cbt/behat-cbt.yml');
+
+        $status = 'test-success';
+        if ($result['exit_status'] == 1) {
+            $status = 'test-failed';
+        }
+        $device = $value['os_api_name'] . $value['browser_api_name'];
+        $device = str_replace('-', '_',$device);
+        $device = str_replace(' ', '_',$device);
+        $device = str_replace('.', '_',$device);
+       
+        file_put_contents(getcwd() . '/features/results/' . $BUILD . '/' . $device . ".$status" . '.log', $result['output']);
+
+        
+    } catch (Exception $e) {
+        eval(\Psy\sh());
+    }
+}
+
+$gridReport = new GridReport($directory);
+$gridReport->buildMatrix();

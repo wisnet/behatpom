@@ -1,0 +1,81 @@
+<?php
+/*
+ * Copyright (c) Wisnet
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+namespace pages;
+use Wisnet\BehatPom\Utility;
+use Wisnet\BehatPom\Base;
+
+//baseUrl: {{{input.baseUrl}}}
+//pageUrl: {{{input.pageUrl}}}
+//selector: {{{input.selector}}}
+//trim: {{{input.trim}}}
+//version: {{{manifest.version}}}
+//date: {{{date}}}
+
+/*
+*  Extend class provides support for overriding all the functions
+*/
+if (file_exists('features/bootstrap/pages/{{{input.pageName}}}Extend.php')){
+    include 'features/bootstrap/pages/{{{input.pageName}}}Extend.php';
+}
+class {{{input.pageName}}} extends Base {
+  protected $path = "{{{input.pageUrl}}}";
+  
+  protected $elements = [
+  //Links
+  {{#each links}}
+    "{{{text}}}" =>
+    [
+      "xpath" => "//a[text()='{{{text}}}']"
+    ],
+   {{/each}}
+   //Textboxes
+   {{#each textBoxes}}
+    "{{{label.text}}}" =>
+    [
+      "xpath" => "{{{xpath}}}"
+    ],
+   {{/each}}
+   //Selects
+   {{#each selects}}
+    "{{{label.text}}}" =>
+    [
+      "xpath" => "{{{xpath}}}"
+    ],
+   {{/each}}
+    //TextAreas
+   {{#each textAreas}}
+    "{{{label.text}}}" =>
+    [
+      "xpath" => "{{{xpath}}}"
+    ],
+   {{/each}}
+   //Buttons
+   {{#each buttons}}
+    "{{{label.text}}}" =>
+    [
+      "xpath" => "{{{xpath}}}"
+   {{#if @last}}
+    ]
+    {{else}}
+    ],
+    {{/if}}
+   {{/each}}
+   
+  ];
+   /*
+   * Create variable if {{{input.pageName}}} exists
+   */
+    public function __construct($session, $factory, $parameters) {
+        parent::__construct($session, $factory, $parameters);
+
+        if (file_exists('features/bootstrap/pages/{{{input.pageName}}}Extend.php')) {
+            $this->extend = new \pages\\{{{input.pageName}}}Extend;
+             $this->extend->addToElements($this);  	    
+        }
+    }
+}

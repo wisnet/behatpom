@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>QANoErr - Reports</title>        
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans">
+    <link rel="stylesheet" type="text/css" href="mod.css">
+  </head>
+  <body>
+    <a href="grid.html">Grid View</a>    
+    <div id="toc_container">
+      <p class="toc_title">Devices</p>
+      <ul class="toc_list">
+	{{#each items}}
+	<li>
+	  <a href="{{name}}.html">{{name}}</a>
+	</li>
+	{{/each}}
+      </ul>
+    </div>
+  </body>
+</html>
+

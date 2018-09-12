@@ -1,0 +1,11 @@
+{{#each suites}}
+    {{#each features}}
+       {{#each scenarios}}    
+         {{#each steps}}
+           {{#if img}}
+{{img}} screenshots/{{device}}{{img}}.png
+  	   {{/if}}
+         {{/each}}  
+       {{/each}} 
+    {{/each}}
+{{/each}}

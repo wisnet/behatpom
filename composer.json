@@ -1,0 +1,28 @@
+{
+    "name": "wisnet/behatpom",
+    "description": "BDD, Behat, Mink, Selenium, Page Object Models, Framework"
+    "type": "project",
+    "require": {
+	"behat/behat": "~3.1",
+	"sensiolabs/behat-page-object-extension": "~2.1",
+	"behat/mink-extension": "~2.3",	
+	"facebook/webdriver": "^1.5",
+	"behat/mink-selenium2-driver": "^1.3",
+	"phpspec/phpspec": "^4.3",
+	"se/selenium-server-standalone": "^3.10",
+	"phpunit/phpunit": "^6.0",
+	"phpunit/phpcov": "^4.0",
+	"phpunit/php-code-coverage": "^5.0",
+	"php-ds/php-ds": "^1.2",
+	"zordius/lightncandy": "1.2.2",	
+	"psy/psysh": "^0.8.15"
+    } ,
+    "bin": ["src/bin/preprocessGherkin",
+	    "src/bin/buildCBTTests"
+	   ],    
+    "autoload": {
+        "psr-4": {
+            "Wisnet\\BehatPom\\": "src/behatPOM/"
+        }
+    }
+}

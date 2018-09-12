@@ -1,0 +1,90 @@
+#!/usr/bin/env php
+<?php
+/*
+ * Copyright (c) Wisnet
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+foreach ([__DIR__ . '/../../../../autoload.php', __DIR__ . '/../vendor/autoload.php'] as $file) {
+    if (file_exists($file)) {
+        require $file;
+        break;
+    }
+}
+
+use LightnCandy\LightnCandy;
+
+
+if (is_dir(getcwd() . '/features/temp')) {
+    $files = glob('./features/temp/*'); 
+    foreach($files as $file){ 
+        if(is_file($file))
+            unlink($file); 
+    }
+    rmdir(getcwd() . '/features/temp');
+}
+
+if (!is_dir(getcwd() .'/features/temp')) {
+    mkdir(getcwd() .'/features/temp', 0777, true);
+}
+
+$data = array(
+    'partial' => array(
+        "name" => "To be replaced"
+    )
+);
+$partials = [];
+
+try {
+    foreach (glob(getcwd() . "/features/gherkin/*.partial.feature") as $filename) {
+        $partial = file_get_contents($filename);
+        $name = pathinfo($filename)['filename'];
+        $name = substr($name, 0, ( strlen($name) - strlen('.partial')));
+        $partials[$name] = "\n" . rtrim($partial);
+    }
+    
+    foreach (glob(getcwd() . "/features/gherkin/*.snippet.feature") as $filename) {
+        $snippet = file_get_contents($filename);
+        $name = pathinfo($filename)['filename'];
+        $name = substr($name, 0, ( strlen($name) - strlen('.snippet')));
+        $data[$name]=  "\n" . rtrim($snippet);
+    }
+    
+    foreach (glob(getcwd() . "/features/gherkin/*.hbs.feature") as $filename) {
+
+        $template = file_get_contents($filename);
+
+        $phpStr = LightnCandy::compile($template,
+                                       array(
+                                           "flags" => LightnCandy::FLAG_RUNTIMEPARTIAL | LightnCandy::FLAG_NAMEDARG | LightnCandy::FLAG_HANDLEBARS,
+                                           "partials" => $partials,
+                                           "helpers" => array(
+                                               "math" => function($lvalue, $operator, $rvalue, $options) {
+                                                   if ($operator == '+') {
+                                                       return $lvalue + $rvalue;
+                                                   } else if ($operator == '-') {
+                                                       return $lvalue - $rvalue;
+                                                   } else if ($operator == '*') {
+                                                       return $lvalue * $rvalue;
+                                                   }
+                                               },
+                                               "substring" => function ($string, $start, $length) {
+                                                   return substr($string, $start, $length);
+                                               }
+                                           )
+                                       ));
+
+        $renderer = LightnCandy::prepare($phpStr);
+        $name = pathinfo($filename)['filename'];        
+        $name = substr($name, 0, ( strlen($name) - strlen('.hbs')));
+        $name = $name . ".feature";
+        
+        $string =  $renderer($data);
+        file_put_contents(getcwd() . "/features/temp/$name", $string);
+    }
+} catch (Exception $e) {
+    eval(\Psy\sh());
+    throw $e;
+}
