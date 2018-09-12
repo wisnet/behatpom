@@ -1,0 +1,229 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Overview · QA No Err</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="The following provides a high level view of this project."/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Overview · QA No Err"/><meta property="og:type" content="website"/><meta property="og:url" content="https://wisnet.com/index.html"/><meta property="og:description" content="The following provides a high level view of this project."/><meta property="og:image" content="https://wisnet.com/img/docusaurus.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://wisnet.com/img/docusaurus.png"/><link rel="shortcut icon" href="/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/css/main.css"/></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/docusaurus.svg" alt="QA No Err"/><h2 class="headerTitleWithLogo">QA No Err</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive siteNavItemActive"><a href="/docs/over1.html" target="_self">Docs</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Overview of Project</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Overview of Project</h3><ul><li class="navListItem navListItemActive"><a class="navItem" href="/docs/over1.html">Architecture</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Getting Start</h3><ul><li class="navListItem"><a class="navItem" href="/docs/started.html">Walk through example</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Chrome Extension</h3><ul><li class="navListItem"><a class="navItem" href="/docs/doc1.html">Example Page</a></li><li class="navListItem"><a class="navItem" href="/docs/doc2.html">document number 2</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Snippets</h3><ul><li class="navListItem"><a class="navItem" href="/docs/doc3.html">This is document number 3</a></li><li class="navListItem"><a class="navItem" href="/docs/doc4.html">Other Document</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Partials</h3><ul><li class="navListItem"><a class="navItem" href="/docs/doc5.html">Fifth Document</a></li><li class="navListItem"><a class="navItem" href="/docs/doc6.html">This is document number 3</a></li></ul></div></div></section></div><script>
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              const headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                  document.body.classList.remove('tocActive');
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Overview</h1></header><article><div><span><p>The following provides a high level view of this project.</p>
+<h2><a class="anchor" aria-hidden="true" id="web-applications"></a><a href="#web-applications" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Web Applications</h2>
+<p>This project is geared towards responsive web applications running on desktops and mobile devices.</p>
+<h2><a class="anchor" aria-hidden="true" id="php"></a><a href="#php" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>PHP</h2>
+<p>PHP is the scripting language.</p>
+<h2><a class="anchor" aria-hidden="true" id="behat-gherkin"></a><a href="#behat-gherkin" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Behat Gherkin</h2>
+<p>Using the Behavior Driven Development tool <a href="http://behat.org">Behat</a>, you can create Scenarios and Features that describe the business while also providing the ability to perform Test Automation.</p>
+<p>The following is a custom report provided by QaNoErr that is generated during test automation.  It shows the Gherkin steps that were executed along w/ images capturing the web page:</p>
+<p>Custom report for a specific device that includes the <code>Gherkin</code> statements along with the snapshots.</p>
+<p><img src="/docs/assets/customReport.png" alt="Example Gherkin custom report"></p>
+<p>Also included w/ QaNoErr is a &quot;Grid&quot; report - it shows all the device runtime logs and snapshots of the pages that were navigated.  This provides a powerfull report that helps determine if the UI on each device is working well.</p>
+<p>Notice below, how the <code>Win10IE11</code> device failed the test.  Also, the left most column defines which page the snapshots are from.  In this case, it is the <code>member_access</code> page.  You can sroll the report to the right and left to compare the snapshots from multiple devices.</p>
+<p><img src="/docs/assets/grid-report.png" alt="Example Grid report"></p>
+<p>If you click the <code>View Log</code> on the failed test of device <code>Win10IE11</code> you can see the log from that particular test:</p>
+<p><img src="/docs/assets/grid-report-log.png" alt="Grid report log"></p>
+<h2><a class="anchor" aria-hidden="true" id="page-object-model-pom"></a><a href="#page-object-model-pom" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Page Object Model (POM)</h2>
+<p>The POM approach for accessing Web Applications is provided by <a href="https://github.com/sensiolabs/BehatPageObjectExtension">Behat Page Object Extension</a>.  The POM contains important information such as</p>
+<ul>
+<li>The URL of the page</li>
+<li>The accessors for each of the business elements</li>
+<li>Support for extending the POM
+To create a POM, this project provides a Chrome Extension, <em>Page Object Generator</em>, described below.</li>
+</ul>
+<p>The POM design help seperates the access to elements on a web page from the Gherkin that is interacting with the page.  Rather then have XPath selectors with in the Gherkin code, the POM approach makes the Gherkin much more business like.  So rather the have the Gherkin contain selector type logic, it just interacts w/ the POM page.  This way, also, if the page changes the element to a different name or XPath selector, the change only happens in one place: the POM itself.</p>
+<p>The QaNoErr POM objects are based upon a <code>Base</code> object.  The <code>Base</code> has the common accessors such as <code>clickTheButton</code> and <code>fill</code> a text input field.  All generated POM objects inherit from the <code>Base</code> object.</p>
+<p>Following is an example of a generated POM.  Note that if there is a <code>&lt;Base&gt;Extend.php</code> class available, it will be included.  During the <code>__construct</code> method, if the <code>&lt;Base&gt;Extend.php</code> exists, then any elements defined within the <code>addToElements</code> function will be added.  This provides the ability to add XPath accessors that the Chrome Extension did not generate.</p>
+<pre><code class="hljs css languages- php">
+<span class="hljs-meta">&lt;?php</span>
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">pages</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Wisnet</span>\<span class="hljs-title">BehatPom</span>\<span class="hljs-title">Utility</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Wisnet</span>\<span class="hljs-title">BehatPom</span>\<span class="hljs-title">Base</span>;
+
+<span class="hljs-comment">//baseUrl: https://www.twlw.dev</span>
+<span class="hljs-comment">//pageUrl: /programmes/{id}/session/start/</span>
+<span class="hljs-comment">//selector: //div[@class='modal-dialog']</span>
+<span class="hljs-comment">//trim: true</span>
+<span class="hljs-comment">//version: 0.0.8</span>
+<span class="hljs-comment">//date: Wed May 16 2018 09:58:23 GMT-0500 (CDT)</span>
+
+<span class="hljs-comment">/*
+*  Extend class provides support for overriding all the functions
+*/</span>
+<span class="hljs-keyword">if</span> (file_exists(<span class="hljs-string">'features/bootstrap/pages/BeforeYouFinishExtend.php'</span>)){
+    <span class="hljs-keyword">include</span> <span class="hljs-string">'features/bootstrap/pages/BeforeYouFinishExtend.php'</span>;
+}
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BeforeYouFinish</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Base</span> </span>{
+  <span class="hljs-keyword">protected</span> $path = <span class="hljs-string">"/programmes/{id}/session/start/"</span>;
+  
+  <span class="hljs-keyword">protected</span> $elements = [
+    <span class="hljs-string">"Start Session"</span> =&gt;
+    [
+      <span class="hljs-string">"xpath"</span> =&gt; <span class="hljs-string">"//a[text()='Start Session']"</span>
+    ],
+  ];
+   <span class="hljs-comment">/*
+   * Create variable if BeforeYouFinish exists
+   */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span><span class="hljs-params">($session, $factory, $parameters)</span> </span>{
+        <span class="hljs-keyword">parent</span>::__construct($session, $factory, $parameters);
+
+        <span class="hljs-keyword">if</span> (file_exists(<span class="hljs-string">'features/bootstrap/pages/BeforeYouFinishExtend.php'</span>)) {
+            <span class="hljs-keyword">$this</span>-&gt;extend = <span class="hljs-keyword">new</span> \pages\BeforeYouFinishExtend;
+             <span class="hljs-keyword">$this</span>-&gt;extend-&gt;addToElements(<span class="hljs-keyword">$this</span>);       
+        }
+    }
+}
+
+</code></pre>
+<p>The following class is the Extension, which is optional.  The function <code>addToElements</code> allows for additional XPath selectors.  Also, we'll see later, how to override functions w/in the <code>Base</code> class at runtime.</p>
+<pre><code class="hljs css languages- php"><span class="hljs-meta">&lt;?php</span>
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">pages</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BeforeYouFinishExtend</span> </span>{
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addToElements</span><span class="hljs-params">($parent)</span> </span>{
+        <span class="hljs-comment">//Spinner for publishing</span>
+        $xpath = <span class="hljs-keyword">array</span>(<span class="hljs-string">"xpath"</span> =&gt; <span class="hljs-string">"//button[contains (@class, 'js-save-progress')][text()='Enter']"</span>);
+        $parent-&gt;_addToElements(<span class="hljs-string">"Submit"</span>, $xpath);
+
+    }
+}
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="behat-pom-library"></a><a href="#behat-pom-library" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Behat POM Library</h2>
+<p>There are numerous classes provided with QaNoErr to manage the Automation Process.  Here is a list of the classes w/ a brief description</p>
+<table>
+<thead>
+<tr><th>Class Name</th><th>Builds the BDD Report</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td>Base</td><td>No</td><td>Extends SensioLabs Page Object Extension Page.  Contains common function for accessing page.</td></tr>
+<tr><td>BehatData</td><td>Yes</td><td>Simple class used to build Behat BDD Report</td></tr>
+<tr><td>BehatFeature</td><td>Yes</td><td>Contains Scenarios and Feature information.</td></tr>
+<tr><td>BehatScenario</td><td>Yes</td><td>Contains the Scenario title.</td></tr>
+<tr><td>BehatStep</td><td>Yes</td><td>Contains Text, Type, Snapshot image</td></tr>
+<tr><td>BehatSuite</td><td>Yes</td><td>Contains Features</td></tr>
+<tr><td>CheckParallelTest</td><td>No</td><td>Waits for Automation Test on CrossBrowserTesting to complete.</td></tr>
+<tr><td>CurlSupport</td><td>No</td><td>Utility class for interacting w/ CrossBrowserTesting w/ Curl</td></tr>
+<tr><td>FeatureContext</td><td>No</td><td>Main interface between Gherkin features and POM Base</td></tr>
+<tr><td>GridReport</td><td>Yes</td><td>Processes data generated during BDD run to build Grid report</td></tr>
+<tr><td>Utility</td><td>No</td><td>Contains reusable function</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="chrome-extension-page-object-generator"></a><a href="#chrome-extension-page-object-generator" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Chrome Extension: Page Object Generator</h2>
+<p>The Chrome Extension is utilized when the business web app is to be processed.  The user navigates to the page to be tested and then invokes the Extension.  <img src="/docs/assets/pageObjectGenerator.png" alt="Page Object Generator"></p>
+<h2><a class="anchor" aria-hidden="true" id="snippets"></a><a href="#snippets" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Snippets</h2>
+<p>When writing Gherkin, many times there are situations what will be repeated from script to script.  Take for example a Customer Login action.  There will most likely be many Features that require a Customer Login.  Rather then copy and paste these steps for the Customer Login, instead you can create a <code>snippet</code>.</p>
+<p>Here's an example of what the Gherkin looks like when the snippet is referenced, notice the <code>{{{clientLogsIn}}}</code></p>
+<pre><code class="hljs css languages- gherkin"><span class="hljs-keyword">Feature</span>: 3 Month Programme
+  In order to utilize a programme
+  As a 3 Month membership
+  I want to pay for 3 month 
+
+  <span class="hljs-keyword">Background</span>:
+{{{clientLogsIn}}}  
+
+  <span class="hljs-meta">@javascript</span> <span class="hljs-meta">@wip</span>
+  <span class="hljs-keyword">Scenario</span>: I can see available programme
+    <span class="hljs-keyword">Given</span> I go to the <span class="hljs-string">"Client menu"</span> page
+    <span class="hljs-keyword">Given</span> I click the <span class="hljs-string">"Wellness Programmes"</span> link
+</code></pre>
+<p>And here is the <code>clientLogsIn</code> snippet.</p>
+<pre><code class="hljs css languages- gherkin">    <span class="hljs-keyword">When</span> I go to the <span class="hljs-string">"Home"</span> page
+    <span class="hljs-keyword">And</span> I click the <span class="hljs-string">"Log In"</span> link
+    <span class="hljs-keyword">Then</span> I should see the <span class="hljs-string">"Log in"</span> page
+    <span class="hljs-keyword">Given</span> I fill the <span class="hljs-string">"user_login"</span> with <span class="hljs-string">"someuser@gmail.com"</span>
+    <span class="hljs-keyword">And</span> I fill the <span class="hljs-string">"user_pass"</span> with <span class="hljs-string">"12345678a"</span>
+    <span class="hljs-keyword">And</span> I take a snapshot called 'login'
+    <span class="hljs-keyword">And</span> I click the <span class="hljs-string">"wp-submit"</span> button
+    <span class="hljs-keyword">Then</span> I should see the <span class="hljs-string">"Dashboard"</span> page
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="partials"></a><a href="#partials" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Partials</h2>
+<p>A <code>partial</code> is very simular to a <code>snippet</code> in that it code that can be referenced by a Gherkin step but it also provides the ability to pass parameters in.  Take for example a Quiz that has multiple questions and each question has 4 options that have to be ranked in some order.  Here's what a <code>Quiz</code> gherkin might look like.  Notice how there are multiple variables (e.g. <code>question0</code>) and different values.</p>
+<pre><code class="hljs css languages- gherkin"><span class="hljs-keyword">Feature</span>: Sensory Quiz
+  As a registered user
+  I can take the sensory quiz 
+  I can view the results
+  
+
+  <span class="hljs-keyword">Background</span>:
+{{{clientLogsIn}}}  
+
+  <span class="hljs-meta">@javascript</span> 
+  <span class="hljs-keyword">Scenario</span>: I can the sensory quiz with majority of Answers are Audio
+<span class="hljs-comment">#first question  </span>
+{{&gt;sensoryQuiz question0=<span class="hljs-string">"A1 L3 V2 K4"</span> question1=<span class="hljs-string">"A1 L3 V2 K4"</span> question2=<span class="hljs-string">"A1 L3 V2 K4"</span> question3=<span class="hljs-string">"A1 L3 V2 K4"</span>  question4=<span class="hljs-string">"A1 L3 V2 K4"</span> question5=<span class="hljs-string">"A2 L4 V1 K3"</span> question6=<span class="hljs-string">"A2 L4 V1 K3"</span> question7=<span class="hljs-string">"A2 L4 V1 K3"</span> question8=<span class="hljs-string">"A2 L4 V1 K3"</span> result=<span class="hljs-string">"Audio"</span>}}
+
+  <span class="hljs-meta">@javascript</span> 
+  <span class="hljs-keyword">Scenario</span>: I can the sensory quiz with majority are Visual
+{{&gt;sensoryQuiz question0=<span class="hljs-string">"A2 L3 V1 K4"</span> question1=<span class="hljs-string">"A2 L3 V1 K4"</span> question2=<span class="hljs-string">"A2 L3 V1 K4"</span> question3=<span class="hljs-string">"A2 L3 V1 K4"</span> question4=<span class="hljs-string">"A2 L3 V1 K4"</span> question5=<span class="hljs-string">"A1 L3 V2 K4"</span> question6=<span class="hljs-string">"A1 L3 V2 K4"</span>  question7=<span class="hljs-string">"A1 L3 V2 K4"</span>  question8=<span class="hljs-string">"A1 L3 V2 K4"</span> result=<span class="hljs-string">"Visual"</span>}}
+</code></pre>
+<p>And here is a portion of the <code>sensoryQuiz</code> partial:</p>
+<pre><code class="hljs css languages- gherkin">    <span class="hljs-keyword">Given</span> I go to the <span class="hljs-string">"Sensory quiz"</span> page
+<span class="hljs-comment">#first question</span>
+    <span class="hljs-keyword">And</span> I click the <span class="hljs-string">"Question 0 for {{substring question0 0 1}} with {{substring question0 1 1}}"</span> button
+    <span class="hljs-keyword">And</span> I click the <span class="hljs-string">"Question 0 for {{substring question0 3 1}} with {{substring question0 4 1}}"</span> button
+    <span class="hljs-keyword">And</span> I click the <span class="hljs-string">"Question 0 for {{substring question0 6 1}} with {{substring question0 7 1}}"</span> button
+    <span class="hljs-keyword">And</span> I click the <span class="hljs-string">"Question 0 for {{substring question0 9 1}} with {{substring question0 10 1}}"</span> button
+    <span class="hljs-keyword">And</span> I take a snapshot called 'question_1'
+</code></pre>
+<p>And the generated result will look something like this:</p>
+<pre><code class="hljs css languages- gherkin">    <span class="hljs-keyword">Given</span> I go to the <span class="hljs-string">"Sensory quiz"</span> page
+<span class="hljs-comment">#first question</span>
+    <span class="hljs-keyword">And</span> I click the <span class="hljs-string">"Question 0 for A with 1"</span> button
+    <span class="hljs-keyword">And</span> I click the <span class="hljs-string">"Question 0 for L with 3"</span> button
+    <span class="hljs-keyword">And</span> I click the <span class="hljs-string">"Question 0 for V with 2"</span> button
+    <span class="hljs-keyword">And</span> I click the <span class="hljs-string">"Question 0 for K with 4"</span> button
+    <span class="hljs-keyword">And</span> I take a snapshot called 'question_1'
+</code></pre>
+<p>We'll look into how this is done later so that when you encounter some need for a <code>partial</code> you'll know how it works.</p>
+<h2><a class="anchor" aria-hidden="true" id="psysh"></a><a href="#psysh" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Psysh</h2>
+<p><a href="http://psysh.org/">psysh</a> is a runtime developer console, interactive debugger and REPL for PHP.  This is included w/ <code>QaNoErr</code> and makes it easy to debug the PHP scripts.</p>
+<h2><a class="anchor" aria-hidden="true" id="cbt-crossbrowsertesting"></a><a href="#cbt-crossbrowsertesting" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>CBT - CrossBrowserTesting</h2>
+<p>If you want to run against devices that aren't available locally, you can create an account with <a href="https://crossbrowsertesting.com">CrossBrowserTesting.com</a> and running against multiple devices.  QaNoErr provides the mechanisms to run the same script while changing out the device.  For example, with a list of devices such as below, running <code>vendor/bin/buildCBTTests</code></p>
+<p><strong>List of devices:</strong></p>
+<pre><code class="hljs">[
+    {
+    <span class="hljs-attr">"os_api_name"</span>: <span class="hljs-string">"GalaxyS7-And70"</span>,
+    <span class="hljs-attr">"browser_api_name"</span>: <span class="hljs-string">"MblChrome67"</span>    
+    },
+    {
+    <span class="hljs-attr">"os_api_name"</span>: <span class="hljs-string">"iPhoneX-iOS11"</span>,
+    <span class="hljs-attr">"browser_api_name"</span>: <span class="hljs-string">"MblSafari11.0"</span>
+    },
+    {
+    <span class="hljs-attr">"os_api_name"</span>: <span class="hljs-string">"Mac10.13"</span>,
+    <span class="hljs-attr">"browser_api_name"</span>: <span class="hljs-string">"Chrome62x64"</span>
+    },
+    {
+    <span class="hljs-attr">"os_api_name"</span>: <span class="hljs-string">"Win10"</span>,
+    <span class="hljs-attr">"browser_api_name"</span>: <span class="hljs-string">"Edge17"</span>
+    }    
+]
+</code></pre>
+<p>One command and the desired script will run against each device.  Only one device runs at a time so for those folks who don't want to pay the extra charge associated w/ concurrent Automation Tests, this is really helpful.  QaNoErr will only submit the automation script once there are no currently running device.</p>
+<p>Here is a screenshot showing a few devices that were tested on CrossBrowserTesting.</p>
+<p><img src="/docs/assets/CBT-Automation.png" alt="CrossBrowserTesting Automation Results"></p>
+<h2><a class="anchor" aria-hidden="true" id="code-coverage"></a><a href="#code-coverage" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Code Coverage</h2>
+<p>Everything you need to know on getting a Mac setup to acquire Code Coverage results from your test runs is documented.  Our setup uses <a href="https://www.mamp.info/en/mamp-pro/">MAMP Pro</a>.  We provide instructions on getting XDebug working and how to setup the environment for data acquisition.</p>
+<p>Here are some example reports from Code Coverage:</p>
+<p>This is the Dashboard:
+<img src="/docs/assets/Coverage-Dashboard.png" alt="Dashboard"></p>
+<p>And this is an example of drilling into the code to see what has been covered:
+<img src="/docs/assets/Coverage-Code.png" alt="Code coverage"></p>
+<p>And the following shows the functions w/in a class and their coverage:</p>
+<p><img src="/docs/assets/Coverage-File.png" alt="Source code functions"></p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-next button" href="/docs/started.html">Getting Started →</a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#web-applications">Web Applications</a></li><li><a href="#php">PHP</a></li><li><a href="#behat-gherkin">Behat Gherkin</a></li><li><a href="#page-object-model-pom">Page Object Model (POM)</a></li><li><a href="#behat-pom-library">Behat POM Library</a></li><li><a href="#chrome-extension-page-object-generator">Chrome Extension: Page Object Generator</a></li><li><a href="#snippets">Snippets</a></li><li><a href="#partials">Partials</a></li><li><a href="#psysh">Psysh</a></li><li><a href="#cbt-crossbrowsertesting">CBT - CrossBrowserTesting</a></li><li><a href="#code-coverage">Code Coverage</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="copyright">Copyright © 2018 wisnet.com</section></footer></div></body></html>
