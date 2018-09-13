@@ -447,12 +447,12 @@ class FeatureContext extends PageObjectContext implements MinkAwareContext {
             //could be that the Wordpress navigation is overlapping
             //account for border/menus like w/ WordPress
             try {
-                $this->iScrollTheWindowBy("-100");
+                parent::scrollDownFromTopMenu();
                 $this->current->clickLink($arg1);
             } catch(UnknownError $unknown2) {
                 //possibly the bottom wordpress menu is
                 //on top
-                $this->iScrollTheWindowBy("200");
+                parent::scrollUpFromBottomMenu();
                 $this->current->clickLink($arg1);
             }
         } catch (Exception $e) {
@@ -514,12 +514,12 @@ class FeatureContext extends PageObjectContext implements MinkAwareContext {
             //could be that the Wordpress navigation is overlapping
             //account for border/menus like w/ WordPress
             try {
-                $this->iScrollTheWindowBy("-100");
+                parent::scrollDownFromTopMenu();                
                 $this->current->clickButton($arg1);
             } catch(UnknownError $unknown2) {
                 //possibly the bottom wordpress menu is
                 //on top
-                $this->iScrollTheWindowBy("200");
+                parent::scrollUpFromBottomMenu();
                 $this->current->clickButton($arg1);
             }            
         } catch(Exception $e) {
