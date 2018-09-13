@@ -1,6 +1,6 @@
 {
     "name": "wisnet/behatpom",
-    "description": "BDD, Behat, Mink, Selenium, Page Object Models, Framework"
+    "description": "BDD, Behat, Mink, Selenium, Page Object Models, Framework",
     "type": "project",
     "license": "MIT",    
     "require": {
@@ -21,7 +21,7 @@
     "bin": [
 	"src/bin/preprocessGherkin",
 	"src/bin/buildCBTTests"
-	   ],    
+    ],    
     "autoload": {
         "psr-4": {
             "Wisnet\\BehatPom\\": "src/behatPOM/"
