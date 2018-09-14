@@ -131,11 +131,23 @@ class FeatureContext extends PageObjectContext implements MinkAwareContext {
         return $utility->contains($url, 'crossbrowsertesting');
     }
     /**
-     * page full capture for https://github.com/facebook/php-webdriver
+     * @Then I take a snapshot called :arg1 with modal :arg2
+     */
+    public function iTakeASnapshotCalledWithModal($screenshot_name, $modalName)
+    {
+        $this->iTakeASnapshot($screenshot_name, $modalName);
+    }
+    /**
      * @When I take a snapshot called :arg1
-     * takeFullScreenshot($driver, $screenshot_name)
      */
     public function iTakeASnapshotCalled($screenshot_name)  {
+        $this->iTakeASnapshot($screenshot_name);
+    }
+    /**
+     * page full capture for https://github.com/facebook/php-webdriver
+     * takeFullScreenshot($driver, $screenshot_name)
+     */
+    public function iTakeASnapshot($screenshot_name, $modalName = null)  {
         $driver = $this->getMink()->getSession()->getDriver();
         
         //current position
@@ -160,12 +172,19 @@ class FeatureContext extends PageObjectContext implements MinkAwareContext {
         $driver = $session->getDriver();
         $webDriverSession = $driver->getWebDriverSession();
         $capabilities = $webDriverSession->capabilities();
-        
+
         for ($y = 0; $y < $repeat_y; $y++) {
             $y_pos = $y * $viewport_height;
-            $driver->evaluateScript("window.scrollTo($x_pos, $y_pos)");
-            $scroll_top = $driver->evaluateScript("return window.pageYOffset");
 
+            if (isset($modalName)) {
+                $cmd = "document.getElementById('$modalName').scrollTo($x_pos, $y_pos)";                
+                $driver->evaluateScript($cmd);
+                $cmd = "return document.getElementById('$modalName').scrollTop";
+                $scroll_top = $driver->evaluateScript($cmd);
+            } else {
+                $driver->evaluateScript("window.scrollTo($x_pos, $y_pos)");                
+                $scroll_top = $driver->evaluateScript("return window.pageYOffset");
+            }
 
             //Image is complete if safari or internet explorer
             if ($capabilities['browserName'] == 'safari'
@@ -191,6 +210,7 @@ class FeatureContext extends PageObjectContext implements MinkAwareContext {
             }
 
             $tmp_image = imagecreatefrompng($tmp_name);
+
             imagecopy($full_capture,       //destination
                       $tmp_image,          //source
                       0,                   //destination x
@@ -199,11 +219,9 @@ class FeatureContext extends PageObjectContext implements MinkAwareContext {
                       0,                   //source y
                       $viewport_width,     //source width
                       $viewport_height);   //source height
-            
-
 
             imagepng($full_capture, $file_name);
-                
+
             imagedestroy($tmp_image);
             
         }
@@ -226,62 +244,6 @@ class FeatureContext extends PageObjectContext implements MinkAwareContext {
 
         //need a little time to reset
         sleep(1);        
-    }
-    /**
-     * @When I take a xxxsnapshot called :arg1
-     */
-    public function iTakeASnapshotCalled___Old($arg1) {
-        if (!$this->scenarioHasTag('snapshot')) {
-            return;
-        }
-        $driver = $this->getMink()->getSession()->getDriver();
-
-        //current position
-        $initialPos =  $driver->evaluateScript('window.pageYOffset');
-
-        //the total size of page
-        $scrollHeight = $driver->evaluateScript('document.body.scrollHeight');
-
-        //the viewport
-        $innerHeight = $driver->evaluateScript('window.innerHeight');        
-
-        //initialize
-        $startPos = 0;
-        $section = 0;
-
-        while (true) {
-            //Start at top
-
-            $driver->evaluateScript('window.scrollTo(0, ' . $startPos . ')');
-            
-            //each section has it's own #
-            $file = urlencode($arg1 . "_$section");
-
-            $fullPath = self::$directory . "/screenshots/" . self::$device  . "$file.png";
-
-            file_put_contents($fullPath,  $driver->getScreenshot());
-            
-            //are we at the bottom
-            if (self::$device == 'Win10IE11' //the screensghot is complete
-                ||
-                (($startPos + $innerHeight) >= $scrollHeight)) {
-                break;
-            }
-
-            $startPos += $innerHeight;            
-            $section += 1;
-        }//while
-        //Go back to top so that if scrolling down, the drawer disappears
-        $driver->evaluateScript('window.scrollTo(0, 0)');
-        
-        //needs time to setup
-        sleep(1);
-        
-        //put back to initial position
-        $driver->evaluateScript("window.scrollTo(0, $initialPos)");
-
-        //need a little time to reset
-        sleep(1);
     }
     /**
      * @BeforeScenario @sizeMobile
@@ -344,37 +306,6 @@ class FeatureContext extends PageObjectContext implements MinkAwareContext {
         return $date;
     }
     /**
-     * @Given I reset the :arg1 database
-     */
-    public function iResetTheDatabase2($arg1)    {
-        try {
-            $baseUrl = $this->minkParameters['base_url'];
-            if (substr($baseUrl, -1) === '/') {
-                $baseUrl = substr($baseUrl, 0, -1);
-            }
-        
-            if ($arg1 === 'admin') {
-                $arrContextOptions = array("ssl"=>array("verify_peer"=>false, "verify_peer_name"=>false));  
-                $url = $baseUrl . "/staging-reset/BWH";
-                file_get_contents($url, false, stream_context_create($arrContextOptions));
-            } else if ($arg1 === 'discount') {
-                $arrContextOptions = array("ssl"=>array("verify_peer"=>false, "verify_peer_name"=>false));  
-                $url = $baseUrl . "/staging-reset-discount/BWH";
-                file_get_contents($url, false, stream_context_create($arrContextOptions));
-            
-            } else if ($arg1 === 'student') {
-                $arrContextOptions = array("ssl"=>array("verify_peer"=>false, "verify_peer_name"=>false));
-                $url = $baseUrl . "/staging-student-reset";
-                file_get_contents($url, false, stream_context_create($arrContextOptions));
-            } else {
-                throw new Exception("invalid arg for resetting database: $arg1");
-            }
-        } catch (Exception $e) {
-            \Psy\Shell::debug(get_defined_vars(),$this);
-            throw $e;
-        }
-    }
-    /**
      * @Then I should pause
      */
     public function iShouldPause()
@@ -415,11 +346,10 @@ class FeatureContext extends PageObjectContext implements MinkAwareContext {
             sleep(1);
             
             try {
-                //self::$mink->getSession('selenium2')->getDriver()->maximizeWindow();
+                self::$mink->getSession('selenium2')->getDriver()->maximizeWindow();
             } catch(UnknownError $e) {
                 //ignore - some drivers don't support
             }
-            
             
         } catch (Exception $e) {
             eval(\Psy\sh());
@@ -447,12 +377,12 @@ class FeatureContext extends PageObjectContext implements MinkAwareContext {
             //could be that the Wordpress navigation is overlapping
             //account for border/menus like w/ WordPress
             try {
-                parent::scrollDownFromTopMenu();
+                $this->scrollDownFromTopMenu();
                 $this->current->clickLink($arg1);
             } catch(UnknownError $unknown2) {
                 //possibly the bottom wordpress menu is
                 //on top
-                parent::scrollUpFromBottomMenu();
+                $this->scrollUpFromBottomMenu();
                 $this->current->clickLink($arg1);
             }
         } catch (Exception $e) {
@@ -508,18 +438,18 @@ class FeatureContext extends PageObjectContext implements MinkAwareContext {
             $this->current->setupXPath($arg1);
             //make sure it's visible
             $this->iWaitForTheElementToBeVisible($arg1);
-
+            
             $this->current->clickButton($arg1);
         } catch(UnknownError $unknown1) {            
             //could be that the Wordpress navigation is overlapping
             //account for border/menus like w/ WordPress
             try {
-                parent::scrollDownFromTopMenu();                
+                $this->scrollDownFromTopMenu();                
                 $this->current->clickButton($arg1);
             } catch(UnknownError $unknown2) {
                 //possibly the bottom wordpress menu is
                 //on top
-                parent::scrollUpFromBottomMenu();
+                $this->scrollUpFromBottomMenu();
                 $this->current->clickButton($arg1);
             }            
         } catch(Exception $e) {

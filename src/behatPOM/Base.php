@@ -271,9 +271,9 @@ class Base extends Page {
     /*
      * Verify some activity - this has to be defined in the Extend class
      */
-    public function verifyTheActivity($name, $sensory, $gender, $wayin, $music) {
+    public function verifyTheActivity($name, $sensory, $gender, $wayin, $music, $debug) {
         try {
-            return $this->extend->verifyTheActivity($this, $name, $sensory, $gender, $wayin, $music);
+            return $this->extend->verifyTheActivity($this, $name, $sensory, $gender, $wayin, $music, $debug);
         } catch (Exception $e) {
             \Psy\Shell::debug(get_defined_vars(),$this);
             throw $e;
