@@ -153,7 +153,12 @@ class FeatureContext extends PageObjectContext implements MinkAwareContext {
         //current position
         $initialPos =  $driver->evaluateScript('window.pageYOffset');
 
-        $total_height = $driver->evaluateScript('return Math.max.apply(null, [document.body.clientHeight, document.body.scrollHeight, document.documentElement.scrollHeight, document.documentElement.clientHeight])');
+        //If modal id is provided, use it's height since we only want to scroll that element
+        if (isset($modalName)) {
+            $total_height = $driver->evaluateScript("document.getElementById('$modalName').scrollHeight");
+        } else {
+            $total_height = $driver->evaluateScript('return Math.max.apply(null, [document.body.clientHeight, document.body.scrollHeight, document.documentElement.scrollHeight, document.documentElement.clientHeight])');
+        }
 
         $viewport_width = $driver->evaluateScript('return document.documentElement.clientWidth');
         $viewport_height = $driver->evaluateScript('return document.documentElement.clientHeight');
@@ -182,7 +187,7 @@ class FeatureContext extends PageObjectContext implements MinkAwareContext {
                 $cmd = "return document.getElementById('$modalName').scrollTop";
                 $scroll_top = $driver->evaluateScript($cmd);
             } else {
-                $driver->evaluateScript("window.scrollTo($x_pos, $y_pos)");                
+                $driver->evaluateScript("window.scrollTo($x_pos, $y_pos)");                   
                 $scroll_top = $driver->evaluateScript("return window.pageYOffset");
             }
 
@@ -222,8 +227,10 @@ class FeatureContext extends PageObjectContext implements MinkAwareContext {
 
             imagepng($full_capture, $file_name);
 
+            //only in memory
             imagedestroy($tmp_image);
-            
+
+            unlink($tmp_name);
         }
         
         if ($capabilities['browserName'] != 'safari'
