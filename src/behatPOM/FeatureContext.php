@@ -109,8 +109,11 @@ class FeatureContext extends PageObjectContext implements MinkAwareContext {
             self::$device = str_replace(' ', '_', self::$device);
             self::$device = str_replace('.', '_', self::$device);
         }
-
+        
     }
+    /**
+     * Is there a "@tag" on the scenario?
+     */
     public function scenarioHasTag($tagName) {
         if (null === $this->scenario) {
             throw new \RuntimeException(
@@ -177,30 +180,27 @@ class FeatureContext extends PageObjectContext implements MinkAwareContext {
         $driver = $session->getDriver();
         $webDriverSession = $driver->getWebDriverSession();
         $capabilities = $webDriverSession->capabilities();
-
+        $scroll_top = 0;
+        
+        $didModalSucceed = true;
         for ($y = 0; $y < $repeat_y; $y++) {
             $y_pos = $y * $viewport_height;
 
             if (isset($modalName)) {
-                $cmd = "document.getElementById('$modalName').scrollTo($x_pos, $y_pos)";                
-                $driver->evaluateScript($cmd);
-                $cmd = "return document.getElementById('$modalName').scrollTop";
-                $scroll_top = $driver->evaluateScript($cmd);
+                try {
+                    $cmd = "document.getElementById('$modalName').scrollTo($x_pos, $y_pos)";
+                    $driver->evaluateScript($cmd);
+                    $cmd = "return document.getElementById('$modalName').scrollTop";
+                    $scroll_top = $driver->evaluateScript($cmd);
+                } catch (\Throwable $err) {
+                    $didModalSucceed = false;
+                }
             } else {
                 $driver->evaluateScript("window.scrollTo($x_pos, $y_pos)");                   
                 $scroll_top = $driver->evaluateScript("return window.pageYOffset");
             }
+            file_put_contents($tmp_name,  $driver->getScreenshot());
 
-            //Image is complete if safari or internet explorer
-            if ($capabilities['browserName'] == 'safari'
-                ||
-                $capabilities['browserName'] == 'internet explorer') {                
-                file_put_contents($file_name,  $driver->getScreenshot());
-                break;
-            } else {
-                file_put_contents($tmp_name,  $driver->getScreenshot());
-            }
-                
             $command = 'identify ' . $tmp_name;
             $result = shell_exec($command);
             $exploded = explode(' ', $result);
@@ -208,7 +208,6 @@ class FeatureContext extends PageObjectContext implements MinkAwareContext {
             $size = "$viewport_width" . "x" . "$viewport_height";
             $sizeNext = $exploded[2];
                 
-            
             if ($size != $sizeNext) {
                 $command = 'convert ' . $tmp_name . ' -resize ' . $size . '\! ' .  $tmp_name;
                 shell_exec($command);
@@ -231,14 +230,15 @@ class FeatureContext extends PageObjectContext implements MinkAwareContext {
             imagedestroy($tmp_image);
 
             unlink($tmp_name);
+
+            if (! $didModalSucceed) {
+                break;
+            }
         }
-        
-        if ($capabilities['browserName'] != 'safari'
-            &&
-            $capabilities['browserName'] != 'internet explorer') {
-            imagepng($full_capture, $file_name);
-            imagedestroy($full_capture);
-        }
+
+        imagepng($full_capture, $file_name);
+        imagedestroy($full_capture);
+
 
         //Go back to top so that if scrolling down, the drawer disappears
         $driver->evaluateScript('window.scrollTo(0, 0)');
