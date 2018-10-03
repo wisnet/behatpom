@@ -1,10 +1,10 @@
 ---
 id: overview
 title: Overview
-sidebar_label: Architecture
+sidebar_label: Overview
 ---
 
-The following provides a high level view of this project.
+The following provides a high level overview of the **QANoErr** project.
 
 ## Web Applications
 This project is geared towards responsive web applications running on desktops and mobile devices. 

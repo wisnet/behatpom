@@ -22,7 +22,7 @@ We will do the following:
 
 
 ### `Finished project`
-If you want to look at the final code, you can look at this project:  foobar
+If you want to look at the final code, you can look at this project: [https://github.com/wisnet/qanoerr-example](https://github.com/wisnet/qanoerr-example)
 
 ### `Starting a new project from scratch`
 run the following command `composer create-project bartonhammond/qanoerr POMexample -s dev`
