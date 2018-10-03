@@ -1,10 +1,18 @@
 {
     "docs": {
 	"Overview of Project": [
-	    "over1"
+	    "overview"
 	],
 	"Getting Start": [
 	    "started"
+	],
+	"Tutorials": [
+	    "behat.yml",
+	    "reset",
+	    "extend",
+	    "snippets",
+	    "partials",
+	    "cbt"
 	]
     }
 }

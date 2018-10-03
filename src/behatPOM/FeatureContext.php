@@ -42,13 +42,6 @@ use Behat\MinkExtension\Context\MinkAwareContext;
 
 use Wisnet\BehatPom\Utility;
 
-//Table of content
-class Toc {
-    public $items = [];
-}
-class TocItem {
-    public $name;
-}
 class FeatureContext extends PageObjectContext implements MinkAwareContext {
 
     //first suite during teardown
@@ -706,46 +699,11 @@ class FeatureContext extends PageObjectContext implements MinkAwareContext {
         $string = $renderer($array);
         file_put_contents(self::$directory . "/" . self::$device . ".grid", $string);                
     }
-    /**
-     * 
-     */
-    public static function prepMainReport() {
-        $toc = new Toc();
-        //Get the existing grid files to get the device names
-        $glob = self::$directory . "/*.grid";
-        foreach (glob($glob) as $filename) {
-            $fileParts = pathinfo($filename);
-            $tocItem = new TocItem();
-            $tocItem->name = $fileParts['filename'];
-            array_push($toc->items, $tocItem);
-        }
-        
-        $template = file_get_contents(getcwd() . '/vendor/wisnet/behatpom/src/templates/index.hbs.html');
-
-        $phpStr = LightnCandy::compile($template, array(
-            'flags' => 0
-            | LightnCandy::FLAG_BESTPERFORMANCE
-            | LightnCandy::FLAG_ERROR_EXCEPTION
-            | LightnCandy::FLAG_RUNTIMEPARTIAL
-            | LightnCandy::FLAG_HANDLEBARS
-            | LightnCandy::FLAG_SPVARS
-        ));
-            
-        // set compiled PHP code into $phpStr
-        $renderer = LightnCandy::prepare($phpStr);
-        
-        $array = json_decode(json_encode($toc), true);
-        
-        $string = $renderer($array);
-        file_put_contents(self::$directory . "/" . "index.html", $string);                
-    }    
     /** @AfterSuite */
     public static function teardown(AfterSuiteScope $scope)  {
         FeatureContext::prepGrids();
 
         FeatureContext::prepDevice();
-
-        FeatureContext::prepMainReport();
 
         copy(getcwd() . '/vendor/wisnet/behatpom/src/assests/failure.png', self::$directory . '/screenshots/failure.png');
         copy(getcwd() . '/vendor/wisnet/behatpom/src/assests/jquery.stickytable.min.js', self::$directory . '/jquery.stickytable.min.js');

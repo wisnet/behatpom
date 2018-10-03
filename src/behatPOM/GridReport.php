@@ -8,6 +8,13 @@
 
 namespace Wisnet\BehatPom;
 use LightnCandy\LightnCandy;
+//Table of content for index report
+class Toc {
+    public $items = [];
+}
+class TocItem {
+    public $name;
+}
 
 class GridData {
     public $devices = [];
@@ -37,11 +44,11 @@ class GridReport {
         $this->buildDir = $buildDir;
     }
     /*
-     * read all the files ending w/ the $ext
+     * read all the files ending w/ glob pattern
      */
-    public function readFiles($ext) {
+    public function readFiles($globPattern) {
         $files = [];
-        $glob = "$this->buildDir/*.$ext";
+        $glob = "$this->buildDir/$globPattern";
         foreach (glob($glob) as $filename) {
             array_push($files, $filename);
         }
@@ -143,10 +150,70 @@ class GridReport {
         }
         return $data;
     }
+    public function makeTocItems($toc, $glob) {
+        foreach (glob($glob) as $filename) {
+            $fileParts = pathinfo($filename);
+            $tocItem = new TocItem();
+            $tocItem->name = $fileParts['filename'];
+            array_push($toc->items, $tocItem);
+        }
+        return $toc;
+
+    }
+    /**
+     * build the index.html file w/ the TOC being the device names
+     */
+    public function prepMainReport() {
+        $toc = new Toc();
+        //Get the existing grid files to get the device names
+        $toc = $this->makeTocItems($toc, "$this->buildDir/Gal*.grid");
+        $toc = $this->makeTocItems($toc, "$this->buildDir/Nex*.grid");        
+        $toc = $this->makeTocItems($toc, "$this->buildDir/iPh*.grid");
+        $toc = $this->makeTocItems($toc, "$this->buildDir/iPad*.grid");
+        $toc = $this->makeTocItems($toc, "$this->buildDir/Mac*.grid");
+        $toc = $this->makeTocItems($toc, "$this->buildDir/Win*.grid");                                
+        
+        $template = file_get_contents(getcwd() . '/vendor/wisnet/behatpom/src/templates/index.hbs.html');
+
+        $phpStr = LightnCandy::compile($template, array(
+            'flags' => 0
+            | LightnCandy::FLAG_BESTPERFORMANCE
+            | LightnCandy::FLAG_ERROR_EXCEPTION
+            | LightnCandy::FLAG_RUNTIMEPARTIAL
+            | LightnCandy::FLAG_HANDLEBARS
+            | LightnCandy::FLAG_SPVARS
+        ));
+            
+        // set compiled PHP code into $phpStr
+        $renderer = LightnCandy::prepare($phpStr);
+        
+        $array = json_decode(json_encode($toc), true);
+        
+        $string = $renderer($array);
+        file_put_contents("$this->buildDir/index.html", $string);                
+    }        
     /**
      * Prepare a json file with all the imgages for each device
      */
     public function genGridReport() {
+        $this->gridFiles = $this->readFiles('Nex*.grid');
+        $this->gridFiles = array_merge($this->gridFiles, $this->readFiles('Gal*.grid'));
+        $this->gridFiles = array_merge($this->gridFiles, $this->readFiles('Nex*.grid'));        
+        $this->gridFiles = array_merge($this->gridFiles, $this->readFiles('iPho*.grid'));
+        $this->gridFiles = array_merge($this->gridFiles, $this->readFiles('iPad*.grid'));
+        $this->gridFiles = array_merge($this->gridFiles, $this->readFiles('Mac*.grid'));
+        $this->gridFiles = array_merge($this->gridFiles, $this->readFiles('Win*.grid'));                        
+        $this->logFiles = $this->readFiles('*.log');
+
+        foreach($this->gridFiles as $key=>$file) {
+            //Assume that first device is successfull w/ all images
+            if ($this->first) {
+                $this->first = false;
+                $thead = $this->buildLeftMostColumn($file);
+            }
+            $this->buildColumns($file);
+        }
+
         try {
             $templateFilename = getcwd() . "/vendor/wisnet/behatpom/src/templates/grid-report.hbs.html";
             $template = file_get_contents($templateFilename);
@@ -174,17 +241,8 @@ class GridReport {
     /* build a array of arrays
      */
     public function buildMatrix() {
-        $this->gridFiles = $this->readFiles('grid');
-        $this->logFiles = $this->readFiles('log');
-
-        foreach($this->gridFiles as $key=>$file) {
-            //Assume that first device is successfull w/ all images
-            if ($this->first) {
-                $this->first = false;
-                $thead = $this->buildLeftMostColumn($file);
-            }
-            $this->buildColumns($file);
-        }
         $this->genGridReport();
+
+        $this->prepMainReport();
     }
 }
