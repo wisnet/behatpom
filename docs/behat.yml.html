@@ -1,0 +1,92 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>How to use behat.yml · QA No Err</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="Use `behat.yml` to define your `Suites` and `Contexts`."/><meta name="docsearch:language" content="en"/><meta property="og:title" content="How to use behat.yml · QA No Err"/><meta property="og:type" content="website"/><meta property="og:url" content="https://wisnet.github.io/behatpom/index.html"/><meta property="og:description" content="Use `behat.yml` to define your `Suites` and `Contexts`."/><meta property="og:image" content="https://wisnet.github.io/behatpom/img/docusaurus.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://wisnet.github.io/behatpom/img/docusaurus.png"/><link rel="shortcut icon" href="/behatpom/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/behatpom/css/main.css"/></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/behatpom/"><img class="logo" src="/behatpom/img/docusaurus.svg" alt="QA No Err"/><h2 class="headerTitleWithLogo">QA No Err</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/behatpom/docs/overview.html" target="_self">Docs</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Tutorials</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Overview of Project</h3><ul><li class="navListItem"><a class="navItem" href="/behatpom/docs/overview.html">Architecture</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Getting Start</h3><ul><li class="navListItem"><a class="navItem" href="/behatpom/docs/started.html">Walk through example</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Tutorials</h3><ul><li class="navListItem navListItemActive"><a class="navItem" href="/behatpom/docs/behat.yml.html">behat.yml</a></li><li class="navListItem"><a class="navItem" href="/behatpom/docs/reset.html">Reset data</a></li><li class="navListItem"><a class="navItem" href="/behatpom/docs/extend.html">Extend class</a></li><li class="navListItem"><a class="navItem" href="/behatpom/docs/snippets.html">Snippets</a></li><li class="navListItem"><a class="navItem" href="/behatpom/docs/partials.html">Partials</a></li><li class="navListItem"><a class="navItem" href="/behatpom/docs/cbt.html">CBT usage</a></li></ul></div></div></section></div><script>
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              const headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                  document.body.classList.remove('tocActive');
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docMainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">How to use behat.yml</h1></header><article><div><span><p>Use <code>behat.yml</code> to define your <code>Suites</code> and <code>Contexts</code>.</p>
+<h2><a class="anchor" aria-hidden="true" id="directory-files-within-features"></a><a href="#directory-files-within-features" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Directory &amp; files within <code>features</code></h2>
+<p>the directory structure of a <code>QANoErr</code> project is contained under the main root directory <code>features</code>.  These are the directories within <code>features</code>:</p>
+<p><img src="/behatpom/docs/assets/feature-directories.png" alt="directories"></p>
+<ul>
+<li><strong>bootstrap</strong>: This contains the <code>ProjectContext.php</code>
+<ul>
+<li><strong>pages</strong>:  This is where your <strong>QANoErr Chrome Extension</strong> generated POM should exist</li>
+</ul></li>
+<li><strong>cbt</strong>: Files that support testing on CrossBrowserTesting</li>
+<li><strong>coverage</strong>: If you have a PHP project and you run the <code>coverage</code> task</li>
+<li><strong>gherkin</strong>: Location of Gherkin templates consisting of:
+<ul>
+<li><strong>hbs.features</strong>:  The <code>handlebar</code> templates</li>
+<li><strong>snippet.features</strong>: The <code>snippet</code> features referenced by the <code>hbs</code> features</li>
+<li><strong>partial.features</strong>: The 'partial' features referenced by the <code>hbs</code> features</li>
+</ul></li>
+<li><strong>results</strong>: when running CrossBrowserTesting, the reports are generated here</li>
+<li><strong>temp</strong> The composer command <code>composer behat-prep</code> processes the files in the <code>gherkin</code> directory and generates <code>features</code> in the <strong>temp</strong>.   The <code>behat.yml</code> references the <code>suites</code> in the <strong>temp</strong>.</li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="review-of-the-main-behatyml"></a><a href="#review-of-the-main-behatyml" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Review of the main <code>behat.yml</code></h2>
+<p>Here's an example <code>behat.yml</code> for review:</p>
+<pre><code class="hljs"><span class="hljs-attribute">default</span>:
+  <span class="hljs-attribute">suites</span>:
+    <span class="hljs-attribute">home</span>:
+      <span class="hljs-attribute">paths</span>: [<span class="hljs-string">"%paths.base%/features/temp/home.feature"</span>]
+      <span class="hljs-attribute">contexts</span>: [ProjectContext]
+    <span class="hljs-attribute">admin</span>:
+      <span class="hljs-attribute">paths</span>: [<span class="hljs-string">"%paths.base%/features/temp/admin.feature"</span>]
+      <span class="hljs-attribute">contexts</span>: [ProjectContext]
+  <span class="hljs-attribute">extensions</span>:
+    Behat\<span class="hljs-attribute">MinkExtension</span>:
+      <span class="hljs-attribute">browser_name</span>: <span class="hljs-string">'chrome'</span>
+      <span class="hljs-attribute">javascript_session</span>: selenium2
+      <span class="hljs-attribute">selenium2</span>:
+        <span class="hljs-attribute">wd_host</span>: <span class="hljs-attribute">http</span>:<span class="hljs-comment">//0.0.0.0:4444/wd/hub</span>
+      <span class="hljs-attribute">base_url</span>: <span class="hljs-attribute">https</span>:<span class="hljs-comment">//twlwdev.wpengine.com</span>
+
+    SensioLabs\Behat\<span class="hljs-attribute">PageObjectExtension</span>:
+      <span class="hljs-attribute">namespaces</span>:
+        <span class="hljs-attribute">page</span>: [pages]
+        <span class="hljs-attribute">element</span>: [pages]
+
+</code></pre>
+<p>We define each of our <code>Suites</code> separately as shown above.  This is because you can run a particular <code>Suite</code> by using this command line:</p>
+<p><code>vendor/bin/behat --config behat.yml --suite home</code> and that will run the <code>home</code> suite.  If you run only <code>vendor/bin/behat --config behat.yml</code> then all the defined suites will run.</p>
+<p>Each <code>Suite</code> has two values:</p>
+<ul>
+<li><strong>paths</strong>: where is the feature and what is it's name</li>
+<li><strong>contexts</strong>: which Context is used. Typically all our <code>Suites</code> use the same <code>Context</code>, which in this case is <code>ProjectContext</code>.</li>
+</ul>
+<p>The <code>Behat\MinkExtension</code> provides an API that is browser independent.  In the case here, we are specifically using the <code>browser_name</code> <strong>chrome</strong>.  Other accepted values are <strong>firefox</strong> and <strong>safari</strong>.</p>
+<p>When running locally, we need to supply the <code>wd_host</code>.  This is the <strong>address</strong> of the running <code>composer selenium-server</code> command.</p>
+<p>The <code>base_url</code> is the address of the base page.  As we move our code from <code>local dev</code>, to <code>dev</code> to <code>staging</code> to <code>prod</code>, we can change this <code>base_url</code> and run our tests w/o any other change.</p>
+<p>The <code>SensioLabs\Behat\PageObjectExtension</code> extension needs to know what the <code>namespaces</code> are, which is always <code>pages</code>.</p>
+<h2><a class="anchor" aria-hidden="true" id="how-to-use-behatyml"></a><a href="#how-to-use-behatyml" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>How to use behat.yml</h2>
+<p>There are a number of ways to run behat.</p>
+<ul>
+<li><strong>composer</strong>: <code>composer behat</code> which will run <code>composer behat-prep</code> and then run <code>behat</code></li>
+<li><strong>command line - all suites</strong>: <code>vendor/bin/behat --config behat.yml</code></li>
+<li><strong>command line - specif suite</strong>: <code>vendor/bin/behat --config behat.yml --suite suitename</code></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="use-w-psysh"></a><a href="#use-w-psysh" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Use w/ <code>psysh</code></h2>
+<p>If you are interested in doing some debugging, you must run <code>behat</code> from the <code>command line</code> as shown above.  If you use the <code>composer</code> approach, <code>behat</code> will not pause when encountering a <code>eval(\Psy\sh());</code> statement.  If you run from the <code>command line</code>, <code>behat</code> will pause when encountering the <code>eval(\Psy\sh());</code></p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/behatpom/docs/started.html"><span class="arrow-prev">← </span><span>Previous</span></a><a class="docs-next button" href="/behatpom/docs/reset.html"><span>Next</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav docOnPageNav"><ul class="toc-headings"><li><a href="#directory-files-within-features">Directory &amp; files within <code>features</code></a></li><li><a href="#review-of-the-main-behatyml">Review of the main <code>behat.yml</code></a></li><li><a href="#how-to-use-behatyml">How to use behat.yml</a></li><li><a href="#use-w-psysh">Use w/ <code>psysh</code></a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="copyright">Copyright © 2018 wisnet.com</section></footer></div></body></html>

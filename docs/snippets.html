@@ -1,0 +1,76 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>What are snippets and how to they work · QA No Err</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="**Snippets** help reduce duplicate Steps within Features"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="What are snippets and how to they work · QA No Err"/><meta property="og:type" content="website"/><meta property="og:url" content="https://wisnet.github.io/behatpom/index.html"/><meta property="og:description" content="**Snippets** help reduce duplicate Steps within Features"/><meta property="og:image" content="https://wisnet.github.io/behatpom/img/docusaurus.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://wisnet.github.io/behatpom/img/docusaurus.png"/><link rel="shortcut icon" href="/behatpom/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/behatpom/css/main.css"/></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/behatpom/"><img class="logo" src="/behatpom/img/docusaurus.svg" alt="QA No Err"/><h2 class="headerTitleWithLogo">QA No Err</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/behatpom/docs/overview.html" target="_self">Docs</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Tutorials</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Overview of Project</h3><ul><li class="navListItem"><a class="navItem" href="/behatpom/docs/overview.html">Architecture</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Getting Start</h3><ul><li class="navListItem"><a class="navItem" href="/behatpom/docs/started.html">Walk through example</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Tutorials</h3><ul><li class="navListItem"><a class="navItem" href="/behatpom/docs/behat.yml.html">behat.yml</a></li><li class="navListItem"><a class="navItem" href="/behatpom/docs/reset.html">Reset data</a></li><li class="navListItem"><a class="navItem" href="/behatpom/docs/extend.html">Extend class</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/behatpom/docs/snippets.html">Snippets</a></li><li class="navListItem"><a class="navItem" href="/behatpom/docs/partials.html">Partials</a></li><li class="navListItem"><a class="navItem" href="/behatpom/docs/cbt.html">CBT usage</a></li></ul></div></div></section></div><script>
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              const headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                  document.body.classList.remove('tocActive');
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docMainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">What are snippets and how to they work</h1></header><article><div><span><p><strong>Snippets</strong> help reduce duplicate Steps within Features</p>
+<h2><a class="anchor" aria-hidden="true" id="what-are-snippets"></a><a href="#what-are-snippets" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>What are Snippets</h2>
+<p><strong>Snippets</strong> contain <strong>Gherkin</strong> steps that can be included within any feature with in the project.</p>
+<p>Our original <strong>Gherkin</strong> Features are written with the file pattern <code>&lt;Feature&gt;.hbs.feature</code> and are contained in the &quot;features/gherkin&quot; directory.</p>
+<p>The <code>hbs</code> identifies the file as a <strong>Handlebars</strong> template.  When we run one of the <code>composer</code> commands having to do w/ <code>Behat</code>, we run this command <code>composer behat-prep</code> which actually then runs <code>vendor/bin/preprocessGherkin</code>.</p>
+<h2><a class="anchor" aria-hidden="true" id="what-does-preprocessgherkin-with-snippets"></a><a href="#what-does-preprocessgherkin-with-snippets" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>What does preprocessGherkin with Snippets?</h2>
+<p><code>preprocessGherkin</code> reads all the files in the <code>features/gherkin</code> directory looking for files w/ the pattern <code>*.snippet.feature</code>.  It also reads all the <code>*.hbs.feature</code> files.</p>
+<p>It then uses a <code>PHP</code> tool called <code>LightnCandy</code>. You can see it here: <a href="https://github.com/zordius/lightncandy">https://github.com/zordius/lightncandy</a>.  This project is a <strong>PHP implementation of Handlebars</strong>.</p>
+<p>We treat our <code>&lt;Feature&gt;.hbs.feature</code> as our <code>template</code>, our <code>handlebars template</code>.  The <code>template</code> is compiled and then our <code>data</code> is provided to the processed template.</p>
+<p>Our <code>&lt;Feature&gt;.hbs.feature</code> might include a line like this,</p>
+<pre><code class="hljs css language-gherkin">{{{spinner}}}
+</code></pre>
+<p>As the example from our <code>starter</code> shows in inclusion of the <code>{{{spinner}}}</code></p>
+<pre><code class="hljs">Feature: Login <span class="hljs-keyword">to</span> page 
+  A login attempt <span class="hljs-keyword">with</span> valid credentials
+  Should be accepted
+  A login attempt <span class="hljs-keyword">with</span> bad credentials
+  Should be rejected
+    
+  <span class="hljs-symbol">@javascript</span> <span class="hljs-symbol">@snapshot</span>
+  Scenario: Login <span class="hljs-keyword">with</span> bad credentials
+{{&gt;loginForm name=<span class="hljs-string">"badusername@crossbrowsertesting.com"</span> password=<span class="hljs-string">"badpassword"</span>}}
+{{{spinner}}}
+    <span class="hljs-keyword">Then</span> the <span class="hljs-string">"Username or password is incorrect"</span> element exists
+    <span class="hljs-literal">And</span> I take a snapshot called <span class="hljs-string">'failed_login'</span>
+</code></pre>
+<p>and  our <code>spinner.snippet.feature</code> look like this:</p>
+<pre><code class="hljs css language-gherkin">    <span class="hljs-keyword">And</span> I wait for the <span class="hljs-string">"Verifying credentials"</span> spinner
+</code></pre>
+<p>Notice how the <code>gherkin</code> uses the <code>spinner</code> name and the <code>snippet.feature</code> is named the same, namely <code>spinner</code>.</p>
+<p>Now, within any <strong>Gherkin</strong> <code>hbs</code> template, we can use the <code>spinner</code> snippet.</p>
+<p>Note that a <code>snippet</code> can be any length necessary.</p>
+<p>Once the <code>preprocessGherkin</code> finishes, we should see our fully realized <strong>Gherkin</strong> in the <code>features/temp</code> directory.  Continuing w/ our example, this would be our <code>features/temp/*.feature</code>:</p>
+<pre><code class="hljs css language-gherkin"><span class="hljs-keyword">Feature</span>: Login to page 
+  A login attempt with valid credentials
+  Should be accepted
+  A login attempt with bad credentials
+  Should be rejected
+    
+  <span class="hljs-meta">@javascript</span> <span class="hljs-meta">@snapshot</span>
+  <span class="hljs-keyword">Scenario</span>: Login with bad credentials
+
+    <span class="hljs-keyword">Given</span> I go to the <span class="hljs-string">"Login form"</span> page
+    <span class="hljs-keyword">And</span> I fill the <span class="hljs-string">"username"</span> with <span class="hljs-string">"badusername@crossbrowsertesting.com"</span>
+    <span class="hljs-keyword">And</span> I fill the <span class="hljs-string">"password"</span> with <span class="hljs-string">"badpassword"</span>
+    <span class="hljs-keyword">And</span> I click the <span class="hljs-string">"submit"</span> button
+    <span class="hljs-keyword">And</span> I wait for the <span class="hljs-string">"Verifying credentials"</span> spinner
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/behatpom/docs/extend.html"><span class="arrow-prev">← </span><span>Previous</span></a><a class="docs-next button" href="/behatpom/docs/partials.html"><span>Next</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav docOnPageNav"><ul class="toc-headings"><li><a href="#what-are-snippets">What are Snippets</a></li><li><a href="#what-does-preprocessgherkin-with-snippets">What does preprocessGherkin with Snippets?</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="copyright">Copyright © 2018 wisnet.com</section></footer></div></body></html>

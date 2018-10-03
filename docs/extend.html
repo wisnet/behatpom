@@ -1,0 +1,175 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Understanding the Extend class · QA No Err</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="Use the **Extend** class to include additional functionality not provided by the Chrome Extension"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Understanding the Extend class · QA No Err"/><meta property="og:type" content="website"/><meta property="og:url" content="https://wisnet.github.io/behatpom/index.html"/><meta property="og:description" content="Use the **Extend** class to include additional functionality not provided by the Chrome Extension"/><meta property="og:image" content="https://wisnet.github.io/behatpom/img/docusaurus.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://wisnet.github.io/behatpom/img/docusaurus.png"/><link rel="shortcut icon" href="/behatpom/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/behatpom/css/main.css"/></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/behatpom/"><img class="logo" src="/behatpom/img/docusaurus.svg" alt="QA No Err"/><h2 class="headerTitleWithLogo">QA No Err</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/behatpom/docs/overview.html" target="_self">Docs</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Tutorials</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Overview of Project</h3><ul><li class="navListItem"><a class="navItem" href="/behatpom/docs/overview.html">Architecture</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Getting Start</h3><ul><li class="navListItem"><a class="navItem" href="/behatpom/docs/started.html">Walk through example</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Tutorials</h3><ul><li class="navListItem"><a class="navItem" href="/behatpom/docs/behat.yml.html">behat.yml</a></li><li class="navListItem"><a class="navItem" href="/behatpom/docs/reset.html">Reset data</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/behatpom/docs/extend.html">Extend class</a></li><li class="navListItem"><a class="navItem" href="/behatpom/docs/snippets.html">Snippets</a></li><li class="navListItem"><a class="navItem" href="/behatpom/docs/partials.html">Partials</a></li><li class="navListItem"><a class="navItem" href="/behatpom/docs/cbt.html">CBT usage</a></li></ul></div></div></section></div><script>
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              const headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                  document.body.classList.remove('tocActive');
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docMainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Understanding the Extend class</h1></header><article><div><span><p>Use the <strong>Extend</strong> class to include additional functionality not provided by the Chrome Extension</p>
+<h2><a class="anchor" aria-hidden="true" id="how-is-the-extend-class-named"></a><a href="#how-is-the-extend-class-named" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>How is the Extend class named?</h2>
+<p>The <strong>Extend</strong> classes all are prefixed w/ the <strong>Base</strong> class name that they are extending.  For example, the <code>AccountClient.php</code> class was generated by the Chrome Extension. One of the required elements that a <strong>Gherkin</strong> test needs was not generated.  So to add that element create a class name <code>AccountClientExtend.php</code>.  The <code>AccountClient</code> was the base or root name.</p>
+<h2><a class="anchor" aria-hidden="true" id="how-is-the-extend-class-used"></a><a href="#how-is-the-extend-class-used" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>How is the Extend class used?</h2>
+<p>When the <strong>QANoErr Chrome Extension</strong> is used to process a page, the emitted class includes checks for the existence of an <strong>Extend</strong> class.  There are two checks,</p>
+<ul>
+<li>Include the <code>Extend</code> class:  If the <code>Extend</code> class is present, then the <code>Base</code> class will include it.</li>
+<li>Instantiate the <code>Extend</code> class:  If the <code>Extend</code> class exists, then it is instantiated and assigned to the property <code>$this-&gt;extend</code> which is defined in <code>Wisnet\BehatPom\Base</code>.</li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="example-of-include"></a><a href="#example-of-include" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Example of <code>include</code></h2>
+<pre><code class="hljs css language-php"><span class="hljs-comment">/*
+*  Extend class provides support for overriding all the functions
+*/</span>
+<span class="hljs-keyword">if</span> (file_exists(<span class="hljs-string">'features/bootstrap/pages/AccountClientExtend.php'</span>)){
+    <span class="hljs-keyword">include</span> <span class="hljs-string">'features/bootstrap/pages/AccountClientExtend.php'</span>;
+}
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AccountClient</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Base</span> </span>{
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="example-of-instantiate"></a><a href="#example-of-instantiate" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Example of <code>instantiate</code></h2>
+<pre><code class="hljs css language-php">   <span class="hljs-comment">/*
+   * Create variable if AccountClient exists
+   */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span><span class="hljs-params">($session, $factory, $parameters)</span> </span>{
+        <span class="hljs-keyword">parent</span>::__construct($session, $factory, $parameters);
+
+        <span class="hljs-keyword">if</span> (file_exists(<span class="hljs-string">'features/bootstrap/pages/AccountClientExtend.php'</span>)) {
+            <span class="hljs-keyword">$this</span>-&gt;extend = <span class="hljs-keyword">new</span> \pages\AccountClientExtend;
+             <span class="hljs-keyword">$this</span>-&gt;extend-&gt;addToElements(<span class="hljs-keyword">$this</span>);       
+        }
+    }
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="what-is-the-bare-minimum-structure-of-the-extend-class"></a><a href="#what-is-the-bare-minimum-structure-of-the-extend-class" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>What is the bare minimum structure of the Extend class</h2>
+<p>The <code>Extend</code> class must:</p>
+<ul>
+<li>Use the <code>namespace pages</code></li>
+<li>Follow the <strong>naming convention</strong> of <code>&lt;Root&gt;Extend.php</code></li>
+<li>Implement the one function <code>public function addToElements($parent)</code></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="what-is-the-purpose-of-the-addtoelements-function"></a><a href="#what-is-the-purpose-of-the-addtoelements-function" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>What is the purpose of the <code>addToElements</code> function?</h2>
+<p>The design of the <strong>QANoErr</strong> Page Object Models is to identify elements that are on the page being tested.  Sometimes the <strong>Chrome Extension</strong> doesn't find the elements correctly or the elements weren't present.  For example, there might be a <strong>Error</strong> message that only appears when the page is submitted.  If the <strong>Chrome Extension</strong> was used when that <strong>Error</strong> message was not visible, then the generated class will not include that <strong>Error</strong> message element.</p>
+<p>Using the <code>addToElements</code> function allows the tester to add additional elements for access by the <strong>Gherkin</strong> tests.  There are two parts of this <code>addToElements</code>,</p>
+<ul>
+<li>xpath selector</li>
+<li>plain name</li>
+</ul>
+<p>The <code>xpath selector</code> portion contains the <code>xpath</code>, for example:</p>
+<pre><code class="hljs css language-php">   $xpath = <span class="hljs-keyword">array</span>(<span class="hljs-string">"xpath"</span> =&gt; <span class="hljs-string">"//input[@name='mepr-account-form']"</span>);
+</code></pre>
+<p>The <code>plain name</code> is a readable term that the <strong>Gherkin</strong> code can reference.  The below name <code>Save Profile</code> is associated to the <code>xpath</code> selector in the following statement:</p>
+<pre><code class="hljs css language-php">        $parent-&gt;_addToElements(<span class="hljs-string">"Save Profile"</span>, $xpath);
+</code></pre>
+<p>The entire function looks like this:</p>
+<pre><code class="hljs css language-php"> <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addToElements</span><span class="hljs-params">($parent)</span> </span>{
+        $xpath = <span class="hljs-keyword">array</span>(<span class="hljs-string">"xpath"</span> =&gt; <span class="hljs-string">"//input[@name='mepr-account-form']"</span>);
+        $parent-&gt;_addToElements(<span class="hljs-string">"Save Profile"</span>, $xpath);
+
+    }
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="how-is-the-xpath-selector-used"></a><a href="#how-is-the-xpath-selector-used" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>How is the xpath selector used?</h2>
+<p>The <code>xpath selector</code> is used to identify elements.  The <code>Page Object Model</code> classes that are generated by the <strong>QANoErr Chrome Extension</strong> and their associated <code>Extend</code> classes, are mainly used to identify elements on a page for testing.  Using the <code>xpath selector</code>, the <code>Wisnet\BehatPom\Base</code> can access all these elements when processing the <strong>Gherkin</strong> code</p>
+<h2><a class="anchor" aria-hidden="true" id="using-initxpath"></a><a href="#using-initxpath" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Using <code>initXPath</code></h2>
+<p>When working with multiple devices and supporting responsive websites, it easily happens that a <code>Link</code> or <code>Button</code> is manipulated to be part of a <code>hamburger</code>.  For example, on Desktops, some elements will be visible but the same page on a small phone, the <code>Link</code> or <code>Button</code> may only be visible when the <code>hamburger</code> icon is clicked.</p>
+<p>In this <strong>responsive</strong> scenario, the <code>XPath</code> selectors may change depending on the device.  One way we decided to handle this was when Clicking a <code>Link</code> or <code>Button</code>, we would first provide an opportunity to change the XPath depending on the device.</p>
+<h2><a class="anchor" aria-hidden="true" id="review-an-initxpath-implementation"></a><a href="#review-an-initxpath-implementation" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Review an <code>initXPath</code> implementation</h2>
+<p>Two scenarios are supported, <code>Click the button</code> and <code>Click the Link</code>.  In the <code>FeatureContext</code>, both implementations start w/ the call to the <code>setUpXPath</code> in the <code>Base</code>.</p>
+<p>Here's the first few lines from <code>iClickTheButton</code> implementation. The only difference w/ <code>iClickTheLink</code> is the last statement, from <code>clickButton</code> to <code>clickLink</code>.</p>
+<pre><code class="hljs css language-php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">iClickTheButton</span><span class="hljs-params">($arg1)</span>  </span>{
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-comment">//dynamic xpath?</span>
+            <span class="hljs-keyword">$this</span>-&gt;current-&gt;setupXPath($arg1);
+            <span class="hljs-comment">//make sure it's visible</span>
+            <span class="hljs-keyword">$this</span>-&gt;iWaitForTheElementToBeVisible($arg1);
+            
+            <span class="hljs-keyword">$this</span>-&gt;current-&gt;clickButton($arg1);
+</code></pre>
+<p>The <code>Base</code> class implements the <code>setupXPath</code> as shown below. If the <code>extend</code> class exists, and the function <code>initXPath</code> exists, then that function is invoked.</p>
+<pre><code class="hljs css language-php">    <span class="hljs-comment">/*
+     * Define XPath dynamically
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setupXPath</span><span class="hljs-params">($linkname)</span> </span>{
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">isset</span> (<span class="hljs-keyword">$this</span>-&gt;extend)
+            &amp;&amp;
+            method_exists(<span class="hljs-keyword">$this</span>-&gt;extend, <span class="hljs-string">'initXPath'</span>)) {
+            <span class="hljs-keyword">$this</span>-&gt;extend-&gt;initXPath(<span class="hljs-keyword">$this</span>, $linkname);
+        }   
+    }
+</code></pre>
+<p>Let's look at an implementation in the <code>ClientMenuExtend.php</code>.  This class handles the menu options for a <code>Client</code> as opposed to a <code>Admin</code> type user.  When the menu is displayed on a small device, the <code>hamburger</code> menu will display the link when the <code>hamburger</code> is clicked.</p>
+<p>We have multiple anchor tags then for the same text.  For example, the link &quot;My Account&quot; appears 2 times in the page.  The first time, when on a Desktop.  The second, when the <code>hamburger</code> icon has been clicked.</p>
+<p>Here is the default definition for the &quot;My Account&quot; option:</p>
+<pre><code class="hljs css language-php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addToElements</span><span class="hljs-params">($parent)</span> </span>{
+        $xpath = <span class="hljs-keyword">array</span>(<span class="hljs-string">"xpath"</span> =&gt; <span class="hljs-string">"(//a[text()='My Account'])[1]"</span>);
+        $parent-&gt;_addToElements(<span class="hljs-string">"My Account"</span>, $xpath);
+        
+</code></pre>
+<p>So when the Gherkin step is like this: <code>And I click the &quot;My Account&quot; link</code>, we don't know what device we're actually running on and thus, we don't know which <code>XPath selector</code> to use.</p>
+<p>Here's how this is implemented in the <code>ClientMenuExtend.php</code>:</p>
+<pre><code class="hljs css language-php">    <span class="hljs-comment">/**
+     * Setup the XPath for elements that are similar but w/ different index
+     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">initXPath</span><span class="hljs-params">($parent, $linkname)</span> </span>{
+        <span class="hljs-keyword">if</span> ($linkname == <span class="hljs-string">'My Account'</span>) {
+            $more = $parent-&gt;getElement(<span class="hljs-string">'More'</span>);
+            <span class="hljs-keyword">if</span> ($more-&gt;isVisible()) {
+                $xpath = <span class="hljs-keyword">array</span>(<span class="hljs-string">"xpath"</span> =&gt; <span class="hljs-string">"(//a[text()='My Account'])[2]"</span>);
+                $parent-&gt;_addToElements(<span class="hljs-string">"My Account"</span>, $xpath);
+            }
+</code></pre>
+<p>At run time, we check which <code>$linkname</code> is to be clicked.  We check if the element <code>More</code> is visible, and if so, we update the <code>XPath selector</code> to use the 2nd occurance of the <code>My Account</code> link.  This is done at run time.</p>
+<h2><a class="anchor" aria-hidden="true" id="overriding-base-functions"></a><a href="#overriding-base-functions" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Overriding <code>Base</code> functions</h2>
+<p>The <code>Wisnet\BehatPom\Base</code> class contains all the functions that support the Gherkin implementations.  It does things like:</p>
+<ul>
+<li>get a value from a field</li>
+<li>fill a field with a value</li>
+<li>click a button</li>
+<li>click a link</li>
+<li>etc</li>
+</ul>
+<p>All the <code>Base</code> needs to know is what the <code>XPath Selector</code> is for the Page Object Model.  But sometimes the page will have different menu options as described above with responsive devices and you don't know until run time and so you have to interagate the page.</p>
+<p>For example, back with this <code>ClientMenuExtend.php</code> class, there are two <code>Log out</code> selectors.  One for desktop and the other for mobiles.  So when the Gherkin has the <code>Log out</code> step, we can override the <code>clickLink</code> and determine if we are in a responsive situation.</p>
+<p>Here's an example.  Note if the <code>More</code> element is visible, we use a different <code>XPath selector</code>. This could have been solved w/ the <code>initXPath</code> way too.</p>
+<pre><code class="hljs css language-php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">clickLink</span><span class="hljs-params">($parent, $linkname)</span> </span>{
+        <span class="hljs-keyword">if</span> ($linkname == <span class="hljs-string">'Log Out'</span>) {
+            $more = $parent-&gt;getElement(<span class="hljs-string">'More'</span>);
+            <span class="hljs-keyword">if</span> ($more-&gt;isVisible()) {            
+                $more-&gt;click();
+                sleep(<span class="hljs-number">1</span>);
+                $link = $parent-&gt;getElement(<span class="hljs-string">'Mobile Log Out'</span>);
+                $link-&gt;click();
+            } <span class="hljs-keyword">else</span> {
+                $link = $parent-&gt;getElement($linkname);
+                $link-&gt;click();
+            }
+</code></pre>
+<p>Here's the standard way all the functions in the <code>Base.php</code> class work w/ the <code>Extend</code> class,
+if the <code>Extend</code> class is set and the method exists, then we call that <code>Extend</code> class method.  Otherwise we just do the default behavior.</p>
+<pre><code class="hljs css language-php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">clickLink</span><span class="hljs-params">($linkname)</span> </span>{
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">isset</span> (<span class="hljs-keyword">$this</span>-&gt;extend)
+            &amp;&amp;
+            method_exists(<span class="hljs-keyword">$this</span>-&gt;extend, <span class="hljs-string">'clickLink'</span>)) {
+            <span class="hljs-keyword">$this</span>-&gt;extend-&gt;clickLink(<span class="hljs-keyword">$this</span>, $linkname);
+        }  <span class="hljs-keyword">else</span> {
+            $link = <span class="hljs-keyword">$this</span>-&gt;getElement($linkname);
+            $link-&gt;click();
+        }   
+    }
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/behatpom/docs/reset.html"><span class="arrow-prev">← </span><span>Previous</span></a><a class="docs-next button" href="/behatpom/docs/snippets.html"><span>Next</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav docOnPageNav"><ul class="toc-headings"><li><a href="#how-is-the-extend-class-named">How is the Extend class named?</a></li><li><a href="#how-is-the-extend-class-used">How is the Extend class used?</a></li><li><a href="#example-of-include">Example of <code>include</code></a></li><li><a href="#example-of-instantiate">Example of <code>instantiate</code></a></li><li><a href="#what-is-the-bare-minimum-structure-of-the-extend-class">What is the bare minimum structure of the Extend class</a></li><li><a href="#what-is-the-purpose-of-the-addtoelements-function">What is the purpose of the <code>addToElements</code> function?</a></li><li><a href="#how-is-the-xpath-selector-used">How is the xpath selector used?</a></li><li><a href="#using-initxpath">Using <code>initXPath</code></a></li><li><a href="#review-an-initxpath-implementation">Review an <code>initXPath</code> implementation</a></li><li><a href="#overriding-base-functions">Overriding <code>Base</code> functions</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="copyright">Copyright © 2018 wisnet.com</section></footer></div></body></html>

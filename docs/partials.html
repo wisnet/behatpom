@@ -1,0 +1,254 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>What are partials and how to they work? · QA No Err</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="`Partials` are huge help in providing programmatic ways of managing complex Features"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="What are partials and how to they work? · QA No Err"/><meta property="og:type" content="website"/><meta property="og:url" content="https://wisnet.github.io/behatpom/index.html"/><meta property="og:description" content="`Partials` are huge help in providing programmatic ways of managing complex Features"/><meta property="og:image" content="https://wisnet.github.io/behatpom/img/docusaurus.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://wisnet.github.io/behatpom/img/docusaurus.png"/><link rel="shortcut icon" href="/behatpom/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/behatpom/css/main.css"/></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/behatpom/"><img class="logo" src="/behatpom/img/docusaurus.svg" alt="QA No Err"/><h2 class="headerTitleWithLogo">QA No Err</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/behatpom/docs/overview.html" target="_self">Docs</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Tutorials</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Overview of Project</h3><ul><li class="navListItem"><a class="navItem" href="/behatpom/docs/overview.html">Architecture</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Getting Start</h3><ul><li class="navListItem"><a class="navItem" href="/behatpom/docs/started.html">Walk through example</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Tutorials</h3><ul><li class="navListItem"><a class="navItem" href="/behatpom/docs/behat.yml.html">behat.yml</a></li><li class="navListItem"><a class="navItem" href="/behatpom/docs/reset.html">Reset data</a></li><li class="navListItem"><a class="navItem" href="/behatpom/docs/extend.html">Extend class</a></li><li class="navListItem"><a class="navItem" href="/behatpom/docs/snippets.html">Snippets</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/behatpom/docs/partials.html">Partials</a></li><li class="navListItem"><a class="navItem" href="/behatpom/docs/cbt.html">CBT usage</a></li></ul></div></div></section></div><script>
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              const headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                  document.body.classList.remove('tocActive');
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docMainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">What are partials and how to they work?</h1></header><article><div><span><p><code>Partials</code> are huge help in providing programmatic ways of managing complex Features</p>
+<h2><a class="anchor" aria-hidden="true" id="what-are-partials-and-how-are-they-different-from-snippets"></a><a href="#what-are-partials-and-how-are-they-different-from-snippets" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>What are Partials and how are they different from snippets?</h2>
+<p><code>Partials</code> are very similar to <code>snippets</code>.  Please review the <code>snippets</code> documenation before proceeding further.  The basic concept of how <code>snippet</code> works, is very similar to <code>partials</code>.  The big difference is that <code>partials</code> have <code>parameters</code> and are referenced differently.  But the idea that we take some <code>steps</code> from a <code>&lt;Feature&gt;.hbs.feature</code> and process the <strong>Handlebars template</strong> is the same.</p>
+<h2><a class="anchor" aria-hidden="true" id="let-s-look-at-a-very-simple-partial"></a><a href="#let-s-look-at-a-very-simple-partial" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Let's look at a very simple Partial</h2>
+<p>From our <code>loginForm.hbs.feature</code>, we introduced the following <code>partial</code> and used it twice, once for the <em>bad credentials</em> and once for the <em>good credentials</em></p>
+<p>The <code>partial</code> looks like this:</p>
+<pre><code class="hljs css language-gherkin">{{&gt;loginForm name=<span class="hljs-string">"badusername@crossbrowsertesting.com"</span> password=<span class="hljs-string">"badpassword"</span>}}
+</code></pre>
+<p>Given that <code>partial</code> reference, we should expect to find a <code>partial</code> feature named <code>loginForm.partial.feature</code>.  We would also expect that <code>partial</code> to have two parameters.  As shown below, there are two parameters, <code>name</code> and <code>password</code>:</p>
+<pre><code class="hljs css language-gherkin">    <span class="hljs-keyword">Given</span> I go to the <span class="hljs-string">"Login form"</span> page
+    <span class="hljs-keyword">And</span> I fill the <span class="hljs-string">"username"</span> with <span class="hljs-string">"{{name}}"</span>
+    <span class="hljs-keyword">And</span> I fill the <span class="hljs-string">"password"</span> with <span class="hljs-string">"{{password}}"</span>
+    <span class="hljs-keyword">And</span> I click the <span class="hljs-string">"submit"</span> button
+</code></pre>
+<p>The parameters within the <code>partial</code> feature are placeholders for the values that are passed in.  In the referencing <code>hbs</code> feature, we pass in the <code>name</code> and <code>password</code>.  Those values get substitued within the <code>partial</code>.</p>
+<p>That's a pretty simple example of what a <code>partial</code> is and how it differs from a <code>snippet</code>.</p>
+<p>If you're interested, see <a href="https://zordius.github.io/HandlebarsCookbook/0011-partial.html">https://zordius.github.io/HandlebarsCookbook/0011-partial.html</a> for more explanations of a <code>partial</code>.</p>
+<h2><a class="anchor" aria-hidden="true" id="what-more-can-a-partial-do-what-s-a-helper"></a><a href="#what-more-can-a-partial-do-what-s-a-helper" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>What more can a Partial do?  What's a <code>helper</code>?</h2>
+<p>It might be helpful, if you're interested, to review this page concerning <code>helpers</code> with the <code>LightnCandy</code> <strong>handlebars</strong>: <a href="https://zordius.github.io/HandlebarsCookbook/0021-customhelper.html">https://zordius.github.io/HandlebarsCookbook/0021-customhelper.html</a>.  Be sure to click on the <code>Source Code Show/Hide</code> button.</p>
+<p>Besides parameter replacement, <strong>QANoErr</strong> <code>partials</code> also have two <code>helpers</code> currently:</p>
+<ul>
+<li><code>math</code>: support simple operators such as <code>+</code>, <code>-</code>, <code>*</code> (add, minus, multiply)</li>
+<li><code>substring</code>: perform <code>substr</code> operation on a <code>string</code> using the <code>start</code> and <code>length</code>.</li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="let-s-look-at-problem-that-was-made-more-manageable-with-the-use-of-the-math-helper"></a><a href="#let-s-look-at-problem-that-was-made-more-manageable-with-the-use-of-the-math-helper" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Let's look at problem that was made more manageable with the use of the <code>math</code> helper.</h2>
+<p>We had to upload many different audio files for each day of a lesson.  There were 7 audio files for each day.  During testing, it wasn't important what the audio files contained, but that the Administration had the audio files required for each day.  The only difference between adding files on one day verus another was the XPath selector for the &quot;Upload&quot; button.</p>
+<p>For example the XPath selector like this:</p>
+<pre><code class="hljs css language-php">(<span class="hljs-comment">//div[@data-name='mm_audio_files']//a[text() = 'Add File'])[&lt;position&gt;]");</span>
+</code></pre>
+<p>Each day's files would have a different <code>&lt;position&gt;</code>.  So either we had really large and unwieldly features, or we could utilize the <code>partial</code> and <code>helper</code> <strong>math</strong></p>
+<p>Here's how we did it.  What we are going to do is:</p>
+<ul>
+<li>Create a <code>partial</code> that uses the <code>math</code> helper.  Each series of files for the day will have <code>{{math startindex '+' X}} where X represents the file for the specific day. Because we have multiple files for each, we will provide a different</code>startIndex` for each day, increasing the value by 7 since we need 7 files for each day.</li>
+<li>Generate our <code>temp</code> <strong>Gherkin</strong> and validate that the <code>position</code> is correct for each file/day.</li>
+<li>Implement the <code>&lt;POM&gt;Extend.php</code> function <code>initXPath</code> to dynamically add <code>XPath Selectors</code> at run time.</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="step-one-update-the-hbs-template"></a><a href="#step-one-update-the-hbs-template" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Step one - Update the hbs template</h3>
+<p>The <code>adminProgrammeFiles.hbs.feature</code> will have a reference to a <code>partial</code>.  Note that we're looking at 3 days here.  Each day will have 7 audio files.  So the <code>startIndex</code> increase by 7.</p>
+<pre><code class="hljs">{{&gt;adminProgrammeFiles startIndex=<span class="hljs-string">"0"</span>}}  //day <span class="hljs-number">1</span>
+{{&gt;adminProgrammeFiles startIndex=<span class="hljs-string">"7"</span>}}  //day <span class="hljs-number">2</span>
+{{&gt;adminProgrammeFiles startIndex=<span class="hljs-string">"14"</span>}} //day <span class="hljs-number">3</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="step-two-create-the-partial-to-use-the-math-helper"></a><a href="#step-two-create-the-partial-to-use-the-math-helper" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Step two - Create the <code>partial</code> to use the <code>math</code> helper</h3>
+<p>Here's the implementation from within the <code>adminProgrammeFiles.partial.featue</code>.  The parameter <code>startIndex</code> is passed in from the <code>hbs</code> template.</p>
+<pre><code class="hljs css language-gherkin">    <span class="hljs-keyword">And</span> I click the <span class="hljs-string">"File {{math startIndex '+' 1}}"</span> link //file 1
+    <span class="hljs-keyword">And</span> I click the <span class="hljs-string">"File {{math startIndex '+' 2}}"</span> link //file 2
+    <span class="hljs-keyword">And</span> I click the <span class="hljs-string">"File {{math startIndex '+' 3}}"</span> link ..    
+    <span class="hljs-keyword">And</span> I click the <span class="hljs-string">"File {{math startIndex '+' 4}}"</span> link ..    
+    <span class="hljs-keyword">And</span> I click the <span class="hljs-string">"File {{math startIndex '+' 5}}"</span> link ..    
+    <span class="hljs-keyword">And</span> I click the <span class="hljs-string">"File {{math startIndex '+' 6}}"</span> link ..    
+    <span class="hljs-keyword">And</span> I click the <span class="hljs-string">"File {{math startIndex '+' 7}}"</span> link //file 7  
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="how-does-this-math-helper-work"></a><a href="#how-does-this-math-helper-work" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>How does this <code>math</code> helper work?</h3>
+<p>Here is code that provides the functionality for <code>math</code>:</p>
+<pre><code class="hljs css language-php">        $phpStr = LightnCandy::compile($template,
+                                       <span class="hljs-keyword">array</span>(
+                                           <span class="hljs-string">"flags"</span> =&gt; LightnCandy::FLAG_RUNTIMEPARTIAL | LightnCandy::FLAG_NAMEDARG | LightnCandy::FLAG_HANDLEBARS,
+                                           <span class="hljs-string">"partials"</span> =&gt; $partials,
+                                           <span class="hljs-string">"helpers"</span> =&gt; <span class="hljs-keyword">array</span>(
+                                               <span class="hljs-string">"math"</span> =&gt; <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">($lvalue, $operator, $rvalue, $options)</span> </span>{
+                                                   <span class="hljs-keyword">if</span> ($operator == <span class="hljs-string">'+'</span>) {
+                                                       <span class="hljs-keyword">return</span> $lvalue + $rvalue;
+                                                   } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ($operator == <span class="hljs-string">'-'</span>) {
+                                                       <span class="hljs-keyword">return</span> $lvalue - $rvalue;
+                                                   } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ($operator == <span class="hljs-string">'*'</span>) {
+                                                       <span class="hljs-keyword">return</span> $lvalue * $rvalue;
+                                                   }
+                                               },
+                                               <span class="hljs-string">"substring"</span> =&gt; <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">($string, $start, $length)</span> </span>{
+                                                   <span class="hljs-keyword">return</span> substr($string, $start, $length);
+                                               }
+                                           )
+                                       ));
+</code></pre>
+<p>Then fragment <code>{{math startIndex '+' 1}}</code> is processed, the <code>math</code> helper is recognized and passed the remaining arguments to this <code>math</code> helper.</p>
+<p>The arguments are such:</p>
+<ul>
+<li>$lvalue: <code>startIndex</code> <strong>which will be either 0, 7, or 14</strong></li>
+<li>$operator: <code>+</code></li>
+<li>$rvalue: <code>1</code></li>
+<li>return value: the value of <code>adding</code> $lvalue with $rvalue</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="what-does-the-generated-temp-feature-look-like"></a><a href="#what-does-the-generated-temp-feature-look-like" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>What does the generated <code>temp</code> feature look like?</h3>
+<p>Here's a <code>step</code> in the Gherkin that represents the <strong>2nd</strong> day with the <strong>3rd</strong> file:</p>
+<pre><code class="hljs css language-gherkin">  <span class="hljs-keyword">And</span> I click the <span class="hljs-string">"File 10"</span> link nn
+</code></pre>
+<p>The first file of the second day would startIndex of 7, so <code>7 + 1</code>: <code>8</code>.  So this generated <code>step</code> is looking for the <strong>10th</strong> link.</p>
+<p>But we don't have defined in our <code>ProgrammesNew</code> <strong>Page Object Model</strong> these XPath locators.  Obvisouly we could define all these XPath locators but since the test could do more then 3 days, we want to support unlimited days.  With our use of the <code>partial</code> along w/ the <code>initXPath</code> function, we can support unlimited days.</p>
+<h3><a class="anchor" aria-hidden="true" id="the-helper-function-allows-us-to-dynamically-generate-final-step"></a><a href="#the-helper-function-allows-us-to-dynamically-generate-final-step" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>The helper function allows us to dynamically generate final <code>step</code></h3>
+<p>We now want to look at the <code>&lt;PageObjectModel&gt;Extend.php</code> class and specifically the <code>function initXPath($parent, $linkName)</code>.</p>
+<p>Remember that the <code>initXPath</code> is invoked when there is a <code>clickLink</code> or <code>clickButton</code>.  In our case, we needed to click the correct <code>link</code>.</p>
+<p>Continueing with our example, lets assume we are at <code>startIndex</code> of 7 and we're looking at the <strong>3rd</strong> file for that day.</p>
+<p>The <code>partial</code> step would look like this:</p>
+<pre><code class="hljs css language-gherkin"><span class="hljs-keyword">And</span> I click the <span class="hljs-string">"File {{math startIndex '+' 3}}"</span> link 
+</code></pre>
+<p>The generated <code>temp</code> feature will have this step:</p>
+<pre><code class="hljs css language-gherkin">    <span class="hljs-keyword">And</span> I click the <span class="hljs-string">"File 10"</span> link 
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="the-initxpath-allows-us-to-dynamically-create-the-new-element"></a><a href="#the-initxpath-allows-us-to-dynamically-create-the-new-element" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>The <code>initXPath</code> allows us to dynamically create the new element</h3>
+<p>When we are handling the <code>link</code> request, we will add code to the <code>initXPath</code> function. The 2nd argument is a String with 2 words separated by a space: <code>File 10</code>.  Why is it important to have the first parameter, <code>File</code> word included?  Because every <code>link</code> that might be on this page will also processed through the <code>initXPath</code> and the only <code>link</code> that we want to handle dynamically at this point are the <code>File</code> links.</p>
+<p>Now, in the <code>initXPath</code> function we can detect that we are working on the <code>File</code> link issue.  The <strong>2nd</strong> value, the number <code>10</code> in our example, tells us we need to create an XPath locator for the 10th file.</p>
+<p>So then within the <code>initXPath</code> function, we could <code>addToElements</code> as shown:</p>
+<pre><code class="hljs">$xpath = <span class="hljs-keyword">array</span>(<span class="hljs-string">"xpath"</span> =&gt; <span class="hljs-string">"(//div[@data-name='mm_files']/input)[**10**]"</span>);
+$parent-&gt;_addToElements(<span class="hljs-string">"File **10**"</span>, $xpath);
+</code></pre>
+<p>Remember from the <code>FeatureContext</code>, the implementation of <code>iClickTheLink</code> function:</p>
+<pre><code class="hljs css language-gherkin">    /<span class="hljs-symbol">*</span><span class="hljs-symbol">*</span>
+     <span class="hljs-symbol">*</span> <span class="hljs-meta">@Given</span> I click the :arg1 link
+     <span class="hljs-symbol">*</span>/
+    public function iClickTheLink($arg1)  {
+        try {
+            $this-&gt;current-&gt;setupXPath($arg1);
+             ....
+            $this-&gt;current-&gt;clickLink($arg1);
+</code></pre>
+<p>Note that first we <code>setupXPath</code> and then <code>clickLink</code> is called. The <code>initXPath</code> function within our <code>Extend</code> class is called and we create a new <code>element</code> dynamically that is identified by the same parameter as the generated <code>temp</code> feature <code>step</code>, namely, in this case:</p>
+<pre><code class="hljs css language-gherkin"><span class="hljs-keyword">And</span> I click the <span class="hljs-string">"File 10"</span> link 
+</code></pre>
+<p>So when the <code>$this-&gt;current-&gt;clickLink($arg1)</code> step is executed, we have already added to our collection of elements (XPath locators w/ names) the <code>File 10</code> link.</p>
+<h2><a class="anchor" aria-hidden="true" id="example-of-using-substring-helper"></a><a href="#example-of-using-substring-helper" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Example of using substring helper</h2>
+<p>On one of our projects we had a Questionaire that had 9 questions.  Each question had 4 options and the user was asked to rank them, from 4 to 1.  Each option was associated w/ either a &quot;A&quot;, &quot;L&quot;, &quot;V&quot;, or &quot;K&quot; category. So, each question required all options were ranked.  When  After all the 9 questions were asked, we would sum the responses.  The category would increase by the ranking.  For example, if the &quot;A&quot; option on question 1 was ranked as 3, then that was the value of &quot;A&quot; for that question.  At the end, the category with the lowest sum was the answer, or preference.</p>
+<p>As the tester I had the key to all the questions/options.  I could write my test such that with specific rankings I could confirm that the preference.</p>
+<p>But rather then have a very long complex <code>hbs</code> template I implemented a <code>partial</code> utilizing the `substring helper.</p>
+<h3><a class="anchor" aria-hidden="true" id="create-the-hbs-template-to-include-the-partial"></a><a href="#create-the-hbs-template-to-include-the-partial" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Create the <code>hbs</code> template to include the <code>partial</code></h3>
+<p>Here is the <code>step</code> from the <code>hbs</code> template:</p>
+<pre><code class="hljs css language-gherkin">{{&gt;sensoryQuiz question0=<span class="hljs-string">"A1 L3 V2 K4"</span> question1=<span class="hljs-string">"A1 L3 V2 K4"</span> question2=<span class="hljs-string">"A1 L3 V2 K4"</span> question3=<span class="hljs-string">"A1 L3 V2 K4"</span>  question4=<span class="hljs-string">"A1 L3 V2 K4"</span> question5=<span class="hljs-string">"A2 L4 V1 K3"</span> question6=<span class="hljs-string">"A2 L4 V1 K3"</span> question7=<span class="hljs-string">"A2 L4 V1 K3"</span> question8=<span class="hljs-string">"A2 L4 V1 K3"</span> result=<span class="hljs-string">"A"</span>}}
+</code></pre>
+<p>Each <code>question 0-8</code> has a string of <code>Ax Lx Vx Kx</code> where X is the <code>rank</code> for the <code>Category</code>.  In this case I wanted the <code>A</code> category to be ranked the lowest and you'll note it was ranked lowest when you see <code>A1</code> - that means rank <code>A</code> as 1.  There is also <code>A2</code> which means rank <code>A</code> as 2.</p>
+<h3><a class="anchor" aria-hidden="true" id="create-the-partial-feature"></a><a href="#create-the-partial-feature" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Create the <code>partial</code> feature</h3>
+<p>Here's a fragment from the <code>partial</code> feature.</p>
+<pre><code class="hljs css language-gherkin">    <span class="hljs-keyword">And</span> I click the <span class="hljs-string">"Question 0 for {{substring question0 0 1}} with {{substring question0 1 1}}"</span> button
+    <span class="hljs-keyword">And</span> I click the <span class="hljs-string">"Question 0 for {{substring question0 3 1}} with {{substring question0 4 1}}"</span> button
+    <span class="hljs-keyword">And</span> I click the <span class="hljs-string">"Question 0 for {{substring question0 6 1}} with {{substring question0 7 1}}"</span> button
+    <span class="hljs-keyword">And</span> I click the <span class="hljs-string">"Question 0 for {{substring question0 9 1}} with {{substring question0 10 1}}"</span> button
+</code></pre>
+<p>It shows for <code>question0</code> to <code>substring</code> the value of <code>question0</code> beginning at the <code>0</code> position for a length of <code>1</code>. And then another <code>substring</code> with position <code>1</code> and length of <code>1</code>.</p>
+<p>In our example, we provided this for <code>question0</code>:</p>
+<p><code>question0=&quot;A1 L3 V2 K4&quot;</code></p>
+<p>So processing our first <code>partial</code> <strong>step</strong>,</p>
+<p><code>And I click the &quot;Question 0 for {{substring question0 0 1}} with {{substring question0 1 1}}&quot; button</code></p>
+<p>will generate to</p>
+<p><code>And I click the &quot;Question 0 for A with 1&quot; button</code></p>
+<p>Which means, for the options on <strong>question 0</strong>, make the option <code>A</code> rank as 1.</p>
+<h3><a class="anchor" aria-hidden="true" id="implement-the-initxpath"></a><a href="#implement-the-initxpath" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Implement the <code>initXPath</code></h3>
+<p>Here's a portion of the <code>initXPath</code> function:</p>
+<pre><code class="hljs css language-php"> <span class="hljs-comment">/**
+     * Setup the XPath for elements that are similar but w/ different index
+     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">initXPath</span><span class="hljs-params">($parent, $linkName)</span> </span>{
+        $parts = explode(<span class="hljs-string">' '</span>, $linkName);
+        
+        <span class="hljs-keyword">if</span> ($parts[<span class="hljs-number">0</span>] == <span class="hljs-string">'Question'</span>) {
+            $question = $parts[<span class="hljs-number">1</span>];
+            $category = $parts[<span class="hljs-number">3</span>];
+            $rank = $parts[<span class="hljs-number">5</span>];
+            
+            $xpath = <span class="hljs-keyword">array</span>(<span class="hljs-string">"xpath"</span> =&gt; <span class="hljs-string">"//label[@for='$category']"</span>);
+            $index = <span class="hljs-string">"Question $question for $category with $rank"</span>;
+            $parent-&gt;_addToElements($index, $xpath);
+        }
+    }
+</code></pre>
+<p>Here we are getting the <code>parts</code> of the <code>$linkName</code>.  We have three parts:</p>
+<ul>
+<li><code>$question</code>: something like <code>question0</code></li>
+<li><code>$category</code>: one of <code>A, K, L, V</code></li>
+<li><code>$rank</code>: one of <code>1, 2, 3, 4</code></li>
+</ul>
+<p>Using these values</p>
+<ul>
+<li><code>$question</code> as <code>question0</code></li>
+<li><code>$category</code> of <code>A</code></li>
+<li><code>$rank</code> of <code>1</code></li>
+</ul>
+<p>Then <code>$index</code> will be <code>&quot;Question question0 for A with 1</code>&quot;;</p>
+<p>With these values we call <code>$parent-&gt;_addToElements($index, $xpath);</code></p>
+<h3><a class="anchor" aria-hidden="true" id="full-hbs-example"></a><a href="#full-hbs-example" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Full <code>hbs</code> example</h3>
+<pre><code class="hljs css language-gherkin"><span class="hljs-keyword">Feature</span>: Quiz
+  As a registered user
+  I can take the quiz 
+  I can view the results
+  
+
+  <span class="hljs-keyword">Background</span>:
+{{{clientLogsIn}}}  
+
+  <span class="hljs-meta">@javascript</span> 
+  <span class="hljs-keyword">Scenario</span>: I can the quiz with majority of Answers are A
+<span class="hljs-comment">#first question  </span>
+{{&gt;quiz question0=<span class="hljs-string">"A1 L3 V2 K4"</span> question1=<span class="hljs-string">"A1 L3 V2 K4"</span> question2=<span class="hljs-string">"A1 L3 V2 K4"</span> question3=<span class="hljs-string">"A1 L3 V2 K4"</span>  question4=<span class="hljs-string">"A1 L3 V2 K4"</span> question5=<span class="hljs-string">"A2 L4 V1 K3"</span> question6=<span class="hljs-string">"A2 L4 V1 K3"</span> question7=<span class="hljs-string">"A2 L4 V1 K3"</span> question8=<span class="hljs-string">"A2 L4 V1 K3"</span> result=<span class="hljs-string">"A"</span>}}
+
+  <span class="hljs-meta">@javascript</span> 
+  <span class="hljs-keyword">Scenario</span>: I can the quiz with majority are V
+{{&gt;quiz question0=<span class="hljs-string">"A2 L3 V1 K4"</span> question1=<span class="hljs-string">"A2 L3 V1 K4"</span> question2=<span class="hljs-string">"A2 L3 V1 K4"</span> question3=<span class="hljs-string">"A2 L3 V1 K4"</span> question4=<span class="hljs-string">"A2 L3 V1 K4"</span> question5=<span class="hljs-string">"A1 L3 V2 K4"</span> question6=<span class="hljs-string">"A1 L3 V2 K4"</span>  question7=<span class="hljs-string">"A1 L3 V2 K4"</span>  question8=<span class="hljs-string">"A1 L3 V2 K4"</span> result=<span class="hljs-string">"V"</span>}}
+
+
+  <span class="hljs-meta">@javascript</span> 
+  <span class="hljs-keyword">Scenario</span>: I can the quiz with majority is L
+{{&gt;quiz question0=<span class="hljs-string">"A3 L1 V2 K4"</span> question1=<span class="hljs-string">"A3 L1 V2 K4"</span> question2=<span class="hljs-string">"A3 L1 V2 K4"</span> question3=<span class="hljs-string">"A3 L1 V2 K4"</span> question4=<span class="hljs-string">"A3 L1 V2 K4"</span> question5=<span class="hljs-string">"A1 L3 V2 K4"</span> question6=<span class="hljs-string">"A1 L3 V2 K4"</span>  question7=<span class="hljs-string">"A1 L3 V2 K4"</span>  question8=<span class="hljs-string">"A1 L3 V2 K4"</span> result=<span class="hljs-string">"L"</span>}}
+
+
+  <span class="hljs-meta">@javascript</span> 
+  <span class="hljs-keyword">Scenario</span>: I can the quiz with majority as K
+{{&gt;quiz question0=<span class="hljs-string">"A3 L4 V2 K1"</span> question1=<span class="hljs-string">"A3 L4 V2 K1"</span> question2=<span class="hljs-string">"A3 L4 V2 K1"</span> question3=<span class="hljs-string">"A3 L4 V2 K1"</span> question4=<span class="hljs-string">"A3 L4 V2 K1"</span> question5=<span class="hljs-string">"A1 L4 V2 K3"</span> question6=<span class="hljs-string">"A1 L4 V2 K3"</span>  question7=<span class="hljs-string">"A1 L4 V2 K3"</span>  question8=<span class="hljs-string">"A1 L4 V2 K3"</span> result=<span class="hljs-string">"K"</span>}}
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="the-generated-temp-feature"></a><a href="#the-generated-temp-feature" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>The generated <code>temp</code> feature</h3>
+<p>The generated <code>temp</code> feature has <code>steps</code> that now look contains <code>steps</code> like this:</p>
+<pre><code class="hljs">  @javascript 
+  Scenario: <span class="hljs-keyword">I</span> can take the quiz with majority of Answers are Audio
+
+    Given <span class="hljs-keyword">I</span> go to the <span class="hljs-string">"quiz"</span> page
+#first question
+    <span class="hljs-keyword">And</span> <span class="hljs-keyword">I</span> click the <span class="hljs-string">"Question 0 for A with 1"</span> button
+    <span class="hljs-keyword">And</span> <span class="hljs-keyword">I</span> click the <span class="hljs-string">"Question 0 for L with 3"</span> button
+    <span class="hljs-keyword">And</span> <span class="hljs-keyword">I</span> click the <span class="hljs-string">"Question 0 for V with 2"</span> button
+    <span class="hljs-keyword">And</span> <span class="hljs-keyword">I</span> click the <span class="hljs-string">"Question 0 for K with 4"</span> button
+    <span class="hljs-keyword">And</span> <span class="hljs-keyword">I</span> take a snapshot called <span class="hljs-string">'question_1'</span>
+    <span class="hljs-keyword">And</span> <span class="hljs-keyword">I</span> click the <span class="hljs-string">"Next 0"</span> button
+    <span class="hljs-keyword">And</span> <span class="hljs-keyword">I</span> wait <span class="hljs-string">"1"</span> second
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="size-comparison-of-hbs-partial-and-the-generated-temp-feature"></a><a href="#size-comparison-of-hbs-partial-and-the-generated-temp-feature" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Size comparison of <code>hbs</code>, <code>partial</code>, and the generated <code>temp</code> feature</h3>
+<p>The entire <code>hbs</code> template, as shown above, is only <strong>27</strong> lines long.</p>
+<p>The entire <code>partial</code> template is <strong>94</strong> lines long</p>
+<p>The file size of the final generated <code>feature</code> is <strong>408 steps</strong>!</p>
+<p>That's a great demonstration of how <code>partials</code> can help create dynamic tests and make the management of those tests much simpler.</p>
+<p>And now, if we wanted to make additional tests for boundary cases, we only will edit the <code>hbs</code> file.</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/behatpom/docs/snippets.html"><span class="arrow-prev">← </span><span>Previous</span></a><a class="docs-next button" href="/behatpom/docs/cbt.html"><span>Next</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav docOnPageNav"><ul class="toc-headings"><li><a href="#what-are-partials-and-how-are-they-different-from-snippets">What are Partials and how are they different from snippets?</a></li><li><a href="#let-s-look-at-a-very-simple-partial">Let's look at a very simple Partial</a></li><li><a href="#what-more-can-a-partial-do-what-s-a-helper">What more can a Partial do? What's a <code>helper</code>?</a></li><li><a href="#let-s-look-at-problem-that-was-made-more-manageable-with-the-use-of-the-math-helper">Let's look at problem that was made more manageable with the use of the <code>math</code> helper.</a><ul class="toc-headings"><li><a href="#step-one-update-the-hbs-template">Step one - Update the hbs template</a></li><li><a href="#step-two-create-the-partial-to-use-the-math-helper">Step two - Create the <code>partial</code> to use the <code>math</code> helper</a></li><li><a href="#how-does-this-math-helper-work">How does this <code>math</code> helper work?</a></li><li><a href="#what-does-the-generated-temp-feature-look-like">What does the generated <code>temp</code> feature look like?</a></li><li><a href="#the-helper-function-allows-us-to-dynamically-generate-final-step">The helper function allows us to dynamically generate final <code>step</code></a></li><li><a href="#the-initxpath-allows-us-to-dynamically-create-the-new-element">The <code>initXPath</code> allows us to dynamically create the new element</a></li></ul></li><li><a href="#example-of-using-substring-helper">Example of using substring helper</a><ul class="toc-headings"><li><a href="#create-the-hbs-template-to-include-the-partial">Create the <code>hbs</code> template to include the <code>partial</code></a></li><li><a href="#create-the-partial-feature">Create the <code>partial</code> feature</a></li><li><a href="#implement-the-initxpath">Implement the <code>initXPath</code></a></li><li><a href="#full-hbs-example">Full <code>hbs</code> example</a></li><li><a href="#the-generated-temp-feature">The generated <code>temp</code> feature</a></li><li><a href="#size-comparison-of-hbs-partial-and-the-generated-temp-feature">Size comparison of <code>hbs</code>, <code>partial</code>, and the generated <code>temp</code> feature</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="copyright">Copyright © 2018 wisnet.com</section></footer></div></body></html>
