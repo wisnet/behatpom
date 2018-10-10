@@ -399,7 +399,7 @@ class FeatureContext extends PageObjectContext implements MinkAwareContext {
             sleep(2);//let the page load
             $this->current = $this->getPage($arg1);        
             sleep(1);
-            //return assertTrue($this->current->verifyPage());
+            return assertTrue($this->current->verifyPage());
         } catch (Exception $e) {
             \Psy\Shell::debug(get_defined_vars(),$this);
             throw $e;            
