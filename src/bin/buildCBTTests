@@ -110,6 +110,7 @@ $renderer = LightnCandy::prepare($phpStr);
 foreach ($devicesArray as $value) {
     try {
         $checkParallelTest->waitWhileTestsAreRunning();
+        $value['screenshots'] = $directory . "/screenshots";
         $value['build'] = $BUILD;
         $value['username'] = $auth['username'];
         $value['authkey'] = $auth['authkey'];
