@@ -23,9 +23,23 @@ class Base extends Page {
             return $this->extend->getValueFromField($this, $name);
         } else {
             $element = $this->getElement($name);
+            eval(\Psy\sh());
             return $element->getValue();
         }
-    }	
+    }
+    /*
+     * Get the text from the field
+     */
+    public function getTextFromField($name) {
+        if (isset ($this->extend)
+            &&
+            method_exists($this->extend, 'getTextFromField')) {
+            return $this->extend->getTextFromField($this, $name);
+        } else {
+            $element = $this->getElement($name);
+            return $element->getText();
+        }
+    }	    
     /*
      * Fill the field of $name with $value
      */

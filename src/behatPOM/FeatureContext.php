@@ -432,6 +432,18 @@ class FeatureContext extends PageObjectContext implements MinkAwareContext {
         }
     }
     /**
+     * @Given I get the ext from :arg1
+     */
+    public function iGetTheTextFrom($arg1)
+    {
+        try {
+            return $this->current->getTextFromField($arg1);
+        } catch(Exception $e) {
+            \Psy\Shell::debug(get_defined_vars(),$this);
+            throw $e;
+        }
+    }    
+    /**
      * @Given I get the value from :arg1
      */
     public function iGetTheValueFrom($arg1)
@@ -523,6 +535,20 @@ class FeatureContext extends PageObjectContext implements MinkAwareContext {
         }
 
     }
+ /**
+     * @Then the :arg1 field should have the text :arg2
+     */
+    public function theFieldShouldHaveTheText($arg1, $arg2)
+    {
+        try {
+            $actual = $this->iGetTheTextFrom($arg1);
+            assertEquals($arg2, $actual);
+        } catch (Exception $e) {
+            \Psy\Shell::debug(get_defined_vars(),$this);
+            throw $e;
+        }
+        
+    }    
     /**
      * @Then the :arg1 field should be equal to :arg2
      */
@@ -530,6 +556,7 @@ class FeatureContext extends PageObjectContext implements MinkAwareContext {
     {
         try {
             $actual = $this->iGetTheValueFrom($arg1);
+            eval(\Psy\sh());
             assertEquals($arg2, $actual);
         } catch (Exception $e) {
             \Psy\Shell::debug(get_defined_vars(),$this);
