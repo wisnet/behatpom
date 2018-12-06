@@ -1,4 +1,4 @@
-<?php
+?php
 /*
  * Copyright (c) Wisnet
  *
@@ -528,12 +528,28 @@ class FeatureContext extends PageObjectContext implements MinkAwareContext {
     public function iSetTheCheckboxTo($arg1, $arg2)
     {
         try {
-            $this->current->setCheckbox($arg1, $arg2);
+            $this->current->setupXPath($arg1);
+            
+            //make sure it's visible
+            $this->iWaitForTheElementToBeVisible($arg1);
+
+            $this->current->setCheckbox($arg1, $arg2);            
+        } catch(UnknownError $unknown1) {
+            //could be that the Wordpress navigation is overlapping
+            //account for border/menus like w/ WordPress
+            try {
+                $this->scrollDownFromTopMenu();
+                $this->current->setCheckbox($arg1, $arg2);                            
+            } catch(UnknownError $unknown2) {
+                //possibly the bottom wordpress menu is
+                //on top
+                $this->scrollUpFromBottomMenu();
+                $this->current->setCheckbox($arg1, $arg2);                                            
+            }
         } catch (Exception $e) {
-            \Psy\Shell::debug(get_defined_vars(),$this);
+            eval(\Psy\sh());            
             throw $e;
         }
-
     }
  /**
      * @Then the :arg1 field should have the text :arg2
@@ -556,7 +572,6 @@ class FeatureContext extends PageObjectContext implements MinkAwareContext {
     {
         try {
             $actual = $this->iGetTheValueFrom($arg1);
-            eval(\Psy\sh());
             assertEquals($arg2, $actual);
         } catch (Exception $e) {
             \Psy\Shell::debug(get_defined_vars(),$this);
@@ -665,7 +680,46 @@ class FeatureContext extends PageObjectContext implements MinkAwareContext {
             throw $e;
         }
     }    
-        
+
+    /**
+     * @Then I wait for the file :arg1 to exist
+     *
+     *
+     * @throws \Exception
+     */
+    public function iWaitForTheFileToExist($fileName) {
+        try {
+            $this->current->waitForTheFileToExist($fileName);
+        } catch(Exception $e) {
+            \Psy\Shell::debug(get_defined_vars(),$this);
+            throw $e;
+        }
+    }
+    /**
+     * @Given I remove the file :arg1
+     */
+    public function iRemoveTheFile($fileName)
+    {
+        try {
+            return unlink($fileName);            
+        } catch(\Exception $e) {
+            //ignore
+        }        
+    }
+
+    /**
+     * @Then I verify the file :arg1 contains :arg2
+     */
+    public function iVerifyTheFileContains($fileName, $text)
+    {
+        try {
+            assertTrue($this->current->verifyTheFileContains($fileName, $text));
+        } catch(Exception $e) {
+            \Psy\Shell::debug(get_defined_vars(),$this);
+            throw $e;
+        }                
+    }    
+
     /**
      * @Given comment :arg1
      */

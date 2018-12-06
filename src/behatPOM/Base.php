@@ -23,7 +23,6 @@ class Base extends Page {
             return $this->extend->getValueFromField($this, $name);
         } else {
             $element = $this->getElement($name);
-            eval(\Psy\sh());
             return $element->getValue();
         }
     }
@@ -226,6 +225,7 @@ class Base extends Page {
     public function waitForElementToBeVisible($name) {
         //Alredy visible?
         $element = $this->getElement($name);
+        
         if ($element->isVisible()) {
             return;
         }
@@ -282,7 +282,52 @@ class Base extends Page {
                 return false;//not found
             }
         });        
-    }    
+    }
+    /**
+     *  Wait upto 15 seconds for file to exist
+     */
+    public function waitForTheFileToExist($fileName)
+    {
+        global $myParent;
+        $myParent = $this;
+
+        global $myFileName;
+        $myFileName = $fileName;
+
+        global $attempts;
+        $myAttempts = $attempts;
+        $myAttempts = 0;
+        return $myParent->waitFor(100000, function() {
+            global $myParent;
+            global $myFileName;
+            global $myAttempts;
+            $myAttempts += 1;
+            try {
+                if (file_exists($myFileName)) {
+                    return true;
+                }
+                if ($myAttempts > 15) {
+                    echo "\ntoo many attepts";
+                    return true;
+                }
+                return false;
+            } catch(Exception $e) {
+                return true;//not found
+            }
+        });        
+    }
+    /*
+     * return true if all the strings are contained within the file
+     */
+    public function verifyTheFileContains($fileName, $text) {
+        if (isset ($this->extend)
+            &&
+            method_exists($this->extend, 'verifyTheFileContains')) {
+            return $this->extend->verifyTheFileContains($this, $fileName, $text);
+        } else {
+            throw new Exception("The function 'verifyTheFileContains' does not exist in the Extend class");
+        }
+    } 
     /*
      * Verify some activity - this has to be defined in the Extend class
      */
